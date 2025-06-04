@@ -2,6 +2,18 @@
 
 Repositorio perteneciente al grupo "The Gods of Programming"
 
+## 📁 Estructura del repositorio
+
+- **Javascript/**  
+  Contiene los proyectos y ejercicios prácticos de la materia Javascript del tercer semestre.  
+  👉 [Ir al índice de proyectos de Javascript](./Tecnicatura/Javascript/index.html)
+
+- **Otros directorios**  
+  Aquí se agregarán futuras materias, trabajos prácticos o recursos relacionados con la Tecnicatura.
+
+Cada carpeta incluye los archivos fuente, documentación y recursos necesarios para cada trabajo o clase.
+
+
 ## 📋 Tabla de contenido
 - [✨ Contribuidores](#contribuidores)
 - [📄 Licencia](#licencia)
