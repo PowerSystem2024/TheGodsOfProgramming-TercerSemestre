@@ -1,40 +1,113 @@
+/* Estilos generales del cuerpo */
 body {
+  background: #121212; /* Fondo muy oscuro */
+  font-family: 'Inter', sans-serif; /* Fuente moderna */
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: #e0e0e0; /* Color de texto claro para fondo oscuro */
+  min-height: 100vh; /* Asegura que el cuerpo ocupe toda la altura de la ventana */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos del encabezado */
+header {
+  background: #2a0000; /* Fondo bordo oscuro para el encabezado */
+  color: #fff;
+  padding: 1.5em 0; /* Más padding para un mejor aspecto */
+  margin-bottom: 2em;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra más pronunciada */
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5em; /* Fuente más grande para el título principal */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra de texto para destacar */
+  color: #ffcc00; /* Dorado o amarillo para el título */
+}
+
+header p {
+  margin: 0.5em 0 0 0;
+  font-size: 1.2em;
+  color: #f0f0f0;
+}
+
+/* Área de contenido principal para el juego */
+.main-content {
+  flex-grow: 1; /* Permite que el contenido principal ocupe el espacio disponible */
+  padding: 40px 24px; /* Padding para el contenido */
+  max-width: 900px; /* Ancho máximo para mejor legibilidad del juego */
+  margin: 0 auto; /* Centra el contenido */
+  background: #1e1e1e; /* Fondo ligeramente más claro para el área de contenido */
+  border-radius: 12px; /* Esquinas redondeadas */
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6); /* Sombra mejorada para profundidad */
+  border: 1px solid #4a0000; /* Borde sutil en tono bordo */
+  margin-bottom: 2em; /* Espacio antes del pie de página */
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: sans-serif;
-  background: #fffbe7;
-}
-h1 {
-  font-size: 3em;
-  margin-bottom: 0.5em;
-  text-align: center;
-}
-#juego {
-  display: flex;
-  width: 700px;
-  margin-top: 30px;
   justify-content: center;
 }
+
+/* Estilos del título del juego */
+.main-content h2 {
+  color: #ff6666; /* Tono de bordo más claro para el subtítulo */
+  margin-top: 0.5em;
+  font-size: 2em; /* Fuente más grande */
+  margin-bottom: 1.5em;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Nuevo contenedor para el juego y los controles */
+.game-area {
+  display: flex;
+  flex-direction: column; /* Apila el juego y los controles verticalmente */
+  align-items: center;
+  width: 100%;
+  max-width: 750px; /* Ancho ligeramente mayor para acomodar controles */
+  background-color: #282828; /* Fondo unificado para el área de juego */
+  border-radius: 12px;
+  padding: 20px; /* Padding dentro de esta nueva área */
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6); /* Sombra interior */
+  border: 1px solid #4a0000; /* Borde consistente */
+  margin-top: 30px; /* Espacio desde el H2 */
+}
+
+/* Contenedor del juego de las torres (dentro de .game-area) */
+#juego {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 250px;
+  padding-bottom: 20px; /* Añade padding en la parte inferior para crear espacio desde los controles */
+}
+
+/* Estilos de cada torre */
 .torre {
   display: flex;
   flex-direction: column-reverse; /* Apilar de abajo hacia arriba */
   align-items: center;
-  width: 33%;
-  padding: 10px;
-  border: 2px solid #a0522d;
-  background-color: #90ee90;
+  width: 30%; /* Ancho de cada torre */
+  padding: 10px 0;
+  border: 2px solid #6a0000; /* Borde en tono bordo */
+  background-color: #3a3a3a; /* Fondo oscuro para las torres */
   margin: 0 10px;
   min-height: 220px;
   position: relative;
   justify-content: flex-start;
+  border-radius: 8px;
+  transition: outline 0.2s ease-in-out;
 }
+
+/* Estilos de los discos */
 .disco {
   width: calc(40px + 30px * var(--tamaño));
   height: 28px;
-  background: linear-gradient(90deg, #2196f3, #21cbf3);
+  background: linear-gradient(90deg, #ff6666, #ffcc00); /* Gradiente bordo a dorado */
   margin-top: 5px;
-  border: 2px solid #0d47a1;
+  border: 2px solid #4a0000; /* Borde en tono bordo */
   border-radius: 8px;
   color: #fff;
   font-weight: bold;
@@ -42,14 +115,196 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 2px 2px 8px #8884;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease-in-out;
 }
+
+/* Estilos de la base de las torres */
 .base {
   width: 90%;
   height: 14px;
-  background-color: #a0522d;
+  background-color: #4a0000; /* Base en tono bordo oscuro */
   border-radius: 4px;
   margin-top: auto; /* Esto la empuja abajo */
   position: relative;
   left: 0;
+}
+
+/* Controles del juego (dentro de .game-area) */
+.game-controls {
+  margin-top: 0; /* Elimina el margen superior para que esté más cerca */
+  padding-top: 15px; /* Añade un poco de padding en la parte superior de los controles */
+  border-top: 1px dashed #4a0000; /* Separador visual */
+  width: 100%; /* Asegura que los controles abarquen todo el ancho */
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* Espacio entre elementos */
+}
+
+.game-controls label {
+  font-size: 1.1em;
+  color: #f0f0f0;
+}
+
+.game-controls input[type="number"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #4a0000;
+  background-color: #282828;
+  color: #ffcc00;
+  font-size: 1em;
+  width: 80px;
+  text-align: center;
+}
+
+.game-controls button {
+  background: linear-gradient(45deg, #ff6666, #cc0000); /* Gradiente de bordo para botones */
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.game-controls button:hover {
+  background: linear-gradient(45deg, #ff9999, #e00000); /* Gradiente más claro al pasar el ratón */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Estilos del pie de página */
+footer {
+  background: #2a0000; /* Fondo bordo oscuro para el pie de página */
+  color: #fff;
+  padding: 1em 0;
+  margin-top: 2em;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.4); /* Sombra superior */
+}
+
+footer p {
+  margin: 0;
+  font-size: 1em;
+}
+
+/* Modal de victoria */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: #1e1e1e;
+  color: #e0e0e0;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+  max-width: 400px;
+  text-align: center;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease-in-out;
+  border: 1px solid #4a0000;
+}
+
+.modal-overlay.show .modal-content {
+  transform: translateY(0);
+}
+
+.modal-content h3 {
+  color: #ffcc00;
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+.modal-content p {
+  font-size: 1.2em;
+  margin-bottom: 25px;
+}
+
+.modal-content button {
+  background: linear-gradient(45deg, #ff6666, #cc0000);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.modal-content button:hover {
+  background: linear-gradient(45deg, #ff9999, #e00000);
+  transform: translateY(-1px);
+}
+
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2em;
+  }
+  header p {
+    font-size: 1em;
+  }
+  .main-content {
+    padding: 20px 15px;
+    margin: 0 10px 2em 10px;
+  }
+  .main-content h2 {
+    font-size: 1.7em;
+  }
+  .game-area {
+    max-width: 95%; /* Ocupa más ancho en móviles */
+    padding: 15px;
+  }
+  #juego {
+    flex-direction: column; /* Apila las torres en pantallas pequeñas */
+    align-items: center;
+    min-height: auto;
+    padding: 5px;
+    padding-bottom: 15px; /* Ajuste para móviles */
+  }
+  .torre {
+    width: 80%; /* Las torres ocupan más ancho */
+    margin: 10px 0;
+    min-height: 180px;
+  }
+  .disco {
+    width: calc(30px + 25px * var(--tamaño)); /* Discos más pequeños */
+    height: 24px;
+    font-size: 1em;
+  }
+  .game-controls {
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px; /* Ajuste para móviles */
+  }
+  .game-controls input[type="number"] {
+    width: 60px;
+  }
+  .game-controls button {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
 }
