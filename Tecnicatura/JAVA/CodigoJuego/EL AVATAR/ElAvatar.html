@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Leyenda de Aang - El Juego</title>
+    <link rel="stylesheet" href="C:\Users\santi\practicas\ProyectoPrueba\Codigojuego\EL AVATAR\CSS\style.css">
+</head>
+
+<body>
+    <h1>AVATAR 🔥💧🍃⛰️</h1>
+    <section id="seleccionar-personaje">
+        <h2>Elige tu Personaje</h2>
+        <div>
+            <input type="radio" name="personaje" id="Zuko">
+            <label for="Zuko">Zuko</label>
+
+            <input type="radio" name="personaje" id="Katara">
+            <label for="Katara">Katara</label>
+
+            <input type="radio" name="personaje" id="Aang">
+            <label for="Aang">Aang</label>
+
+            <input type="radio" name="personaje" id="Toph">
+            <label for="Toph">Toph</label>
+        </div>
+        <button id="boton_personaje">Seleccionar</button>
+    </section>
+
+    <section id="seleccionar-ataque" class="container" style="display: none;">
+        <h2>Elige tu ataque</h2>
+        <p>Tu personaje tiene <span id="vidas-jugador">3</span> vidas</p>
+        <p>Los personajes del enemigo tienen <span id="vidas-enemigo">3</span> vidas</p>
+        <div>
+            <button id="boton-fuego">🔥 Fuego</button>
+            <button id="boton-agua">💧 Agua</button>
+            <button id="boton-tierra">⛰️ Tierra</button>
+            <button id="boton-aire">🍃 Aire</button>
+        </div>
+    </section>
+
+    <section id="mensajes">
+    </section>
+
+    <section id="reiniciar" style="display: none;"> <button id="boton-reiniciar">Reiniciar</button>
+    </section>
+
+    <script src="Funcion.js"></script>
+</body>
+
+</html>
