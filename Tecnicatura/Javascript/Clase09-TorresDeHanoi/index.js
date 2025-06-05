@@ -16,6 +16,7 @@ function hideModal() {
 }
 
 function iniciarJuego() {
+  clearAllTimeouts();
   numDiscos = parseInt(document.getElementById('numDiscos').value);
   reiniciar();
   torreSeleccionada = null;
@@ -88,23 +89,28 @@ function clickTorre(idx) {
   }
 }
 
+let animationTimeouts = [];
+let animationStep = 0;
+const ANIMATION_SPEED = 1000; // 1 segundo por movimiento
+
 function resolver() {
   reiniciar();
   clearAllTimeouts();
-  hanoiRecursivo(numDiscos, 0, 1, 2);
+  animationStep = 0;
+  hanoiRecursivoAnimado(numDiscos, 0, 1, 2);
 }
 
-let animationTimeouts = [];
-
-function hanoiRecursivo(n, origen, auxiliar, destino) {
+function hanoiRecursivoAnimado(n, origen, auxiliar, destino) {
   if (n === 1) {
-    const timeoutId = setTimeout(() => moverDisco(origen, destino), 500 * movimientos);
+    const timeoutId = setTimeout(() => moverDisco(origen, destino), ANIMATION_SPEED * animationStep);
     animationTimeouts.push(timeoutId);
+    animationStep++;
   } else {
-    hanoiRecursivo(n - 1, origen, destino, auxiliar);
-    const timeoutId1 = setTimeout(() => moverDisco(origen, destino), 500 * movimientos);
-    animationTimeouts.push(timeoutId1);
-    hanoiRecursivo(n - 1, auxiliar, origen, destino);
+    hanoiRecursivoAnimado(n - 1, origen, destino, auxiliar);
+    const timeoutId = setTimeout(() => moverDisco(origen, destino), ANIMATION_SPEED * animationStep);
+    animationTimeouts.push(timeoutId);
+    animationStep++;
+    hanoiRecursivoAnimado(n - 1, auxiliar, origen, destino);
   }
 }
 
