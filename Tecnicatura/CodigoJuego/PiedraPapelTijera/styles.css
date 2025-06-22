@@ -1,0 +1,96 @@
+.main-content {
+    max-width: 400px;
+    margin-top: 40px;
+}
+.botones {
+    margin: 20px 0 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+.tanteador {
+    margin-top: 20px;
+}
+/* --- ESTILO MEJORADO PARA BOTONES --- */
+.botones button {
+    background: #282828;
+    color: #ffcc00;
+    border: 1.5px solid #3a3a3a;
+    border-radius: 10px;
+    font-size: 1.2em;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: bold;
+    padding: 14px 28px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    outline: none;
+}
+.botones button:hover, .botones button:focus {
+    background: #3a3a3a;
+    color: #ff6666;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+/* ...existing code... */
+.boton-reiniciar {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+}
+.boton-reiniciar button {
+    background: #222;
+    color: #ffcc00;
+    border: 1.5px solid #3a3a3a;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: bold;
+    padding: 12px 26px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    outline: none;
+}
+.boton-reiniciar button:hover, .boton-reiniciar button:focus {
+    background: #3a3a3a;
+    color: #ff6666;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+.modal-ppj {
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center;
+}
+.modal-content-ppj {
+    background: #222;
+    color: #ffcc00;
+    border-radius: 12px;
+    padding: 32px 24px;
+    min-width: 260px;
+    max-width: 90vw;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    text-align: center;
+}
+.modal-content-ppj button {
+    margin: 18px 8px 0 8px;
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: none;
+    background: #ffcc00;
+    color: #222;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.modal-content-ppj button:hover {
+    background: #ff6666;
+    color: #fff;
+}

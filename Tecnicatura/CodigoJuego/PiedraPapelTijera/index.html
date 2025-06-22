@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piedra, papel o tijera</title>
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/styles.css">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div id="header"></div>
+    <div class="main-content">
+        <h2>Piedra, papel o tijera</h2>
+        <p>Se jugarán 3 partidas. Elige tu jugada:</p>
+        <div class="botones">
+            <button onclick="jugar(1)" class="btn-piedra">✊ Piedra</button>
+            <button onclick="jugar(2)" class="btn-papel">✋ Papel</button>
+            <button onclick="jugar(3)" class="btn-tijera">✌️ Tijera</button>
+        </div>
+        <div class="boton-reiniciar">
+            <button onclick="reiniciar()">🔄 Reiniciar</button>
+        </div>
+        <div class="tanteador">
+            <h3>Tanteador</h3>
+            <p>Jugador: <span id="jugador">0</span></p>
+            <p>Computadora: <span id="pc">0</span></p>
+            <p>Partidas jugadas: <span id="partidas">0</span></p>
+        </div>
+    </div>
+    <div id="footer"></div>
+
+    <div id="modal" class="modal-ppj" style="display:none;">
+        <div class="modal-content-ppj">
+            <span id="modal-mensaje"></span>
+            <div id="modal-botones"></div>
+        </div>
+    </div>
+    
+    <script src="./index.js"></script>
+    <script src="../../static/includes.js"></script>
+    <script>
+        includeHeaderFooter('../../static/header.html', '../../static/footer.html');
+    </script>
+</body>
+</html>
