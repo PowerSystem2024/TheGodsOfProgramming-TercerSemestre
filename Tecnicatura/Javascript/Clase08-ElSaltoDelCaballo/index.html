@@ -3,97 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <title>Salto del Caballo Visual</title>
-  <style>
-   body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
-  background: linear-gradient(135deg, #6a11cb, #2575fc); /* degradado azul-violeta */
-  color: white;
-  min-height: 100vh;
-  margin: 0;
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
-}
-
-#btnReiniciar {
-  background-color: #ffcc00;
-  border: none;
-  padding: 12px 30px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  border-radius: 25px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(255, 204, 0, 0.4);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-bottom: 25px;
-  color: #333;
-  user-select: none;
-}
-
-#btnReiniciar:hover {
-  background-color: #e6b800;
-  transform: scale(1.05);
-}
-
-#tablero {
-  display: grid;
-  grid-template-columns: repeat(8, 60px);
-  grid-template-rows: repeat(8, 60px);
-  gap: 2px;
-  justify-content: center;
-  box-shadow: 0 0 20px rgba(0,0,0,0.25);
-  border-radius: 12px;
-  background-color: #1a1a1a;
-  padding: 6px;
-}
-
-.casilla {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  border: 1px solid #666;
-}
-
-.blanca {
-  background-color: #f0f0f0;
-  color: #222;
-}
-
-.negra {
-  background-color: #3a3a3a;
-  color: #ddd;
-}
-
-.caballo {
-  background-color: gold !important;
-  color: black !important;
-  box-shadow: 0 0 8px 3px gold;
-  font-size: 22px;
-  font-weight: 900;
-}
-  </style>
+  <link rel="stylesheet" href="../Clase09-TorresDeHanoi/styles.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <h1>Tour del Caballo 🐴</h1>
-  <button id="btnReiniciar">Reiniciar</button>
-  <div id="tablero"></div>
-  <script src="saltocaballo.js"></script>
+  <div id="header"></div>
+  <div class="main-content">
+    <h2>El Salto del Caballo</h2>
+    <div class="game-area">
+      <div id="tablero"></div>
+      <div class="game-controls">
+        <label for="inputN">Tamaño del tablero (N x N):</label>
+        <input type="number" id="inputN" min="5" max="10" value="8" style="width:60px;">
+        <button id="btnReiniciar">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+  <div id="footer"></div>
+  <script src="../static/includes.js"></script>
+  <script>
+    includeHeaderFooter('../static/header.html', '../static/footer.html');
+  </script>
+  <script src="index.js"></script>
 </body>
 </html>

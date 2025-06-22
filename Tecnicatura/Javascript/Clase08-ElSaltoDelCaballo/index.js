@@ -1,73 +1,86 @@
-const N = 8;
-const movX = [2, 1, -1, -2, -2, -1, 1, 2];
-const movY = [1, 2, 2, 1, -1, -2, -2, -1];
-
-let tablero = Array.from({ length: N }, () => Array(N).fill(-1));
-const contenedor = document.getElementById("tablero");
-const btnReiniciar = document.getElementById("btnReiniciar");
-
-let caballoPos = null;
+let N = 8;
+let movX = [2, 1, -1, -2, -2, -1, 1, 2];
+let movY = [1, 2, 2, 1, -1, -2, -2, -1];
+let tablero = [];
 let animando = false;
 let continuarAnimacion = true;
 
-// Crear visualmente el tablero
+const contenedor = document.getElementById("tablero");
+const btnReiniciar = document.getElementById("btnReiniciar");
+const inputN = document.getElementById("inputN");
+
 function crearTablero() {
   contenedor.innerHTML = "";
+  contenedor.style.setProperty('--n', N);
+  contenedor.style.gridTemplateColumns = `repeat(${N}, 48px)`;
+  contenedor.style.gridTemplateRows = `repeat(${N}, 48px)`;
   for (let i = 0; i < N; i++) {
     for (let j = 0; j < N; j++) {
       const casilla = document.createElement("div");
       casilla.classList.add("casilla");
-      casilla.classList.add((i + j) % 2 === 0 ? "blanca" : "negra");
+      if ((i + j) % 2 !== 0) {
+        casilla.classList.add("negra");
+      }
       casilla.id = `c-${i}-${j}`;
       contenedor.appendChild(casilla);
     }
   }
 }
 
-// Validar movimiento válido y no visitado
 function esValido(x, y) {
   return x >= 0 && y >= 0 && x < N && y < N && tablero[x][y] === -1;
 }
 
-// Función para actualizar visualmente la posición del caballo y los saltos
 function pintarTablero() {
   for (let i = 0; i < N; i++) {
     for (let j = 0; j < N; j++) {
       const celda = document.getElementById(`c-${i}-${j}`);
-      celda.textContent = tablero[i][j] === -1 ? "" : tablero[i][j];
-      celda.classList.remove("caballo");
+      if (!celda) continue;
+      celda.classList.remove("caballo", "visitada");
+      // Si la celda fue visitada, muestra el número de salto
       if (tablero[i][j] !== -1) {
-        celda.style.backgroundColor = (i + j) % 2 === 0 ? "#c3e6cb" : "#7ac47a"; // colores suaves para visitadas
+        celda.innerHTML = `<span class="salto-num">${tablero[i][j]}</span>`;
+        celda.classList.add("visitada");
       } else {
-        celda.style.backgroundColor = (i + j) % 2 === 0 ? "#eee" : "#444";
-        celda.style.color = (i + j) % 2 === 0 ? "black" : "white";
+        celda.innerHTML = "";
       }
     }
   }
+  // Encuentra la posición actual del caballo (el número más alto)
+  let maxSalto = -1, xCab = -1, yCab = -1;
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < N; j++) {
+      if (tablero[i][j] > maxSalto) {
+        maxSalto = tablero[i][j];
+        xCab = i;
+        yCab = j;
+      }
+    }
+  }
+  if (xCab !== -1 && yCab !== -1) {
+    const celdaCaballo = document.getElementById(`c-${xCab}-${yCab}`);
+    celdaCaballo.innerHTML = `<span class="caballo-emoji">🐴</span><span class="salto-num">${maxSalto}</span>`;
+    celdaCaballo.classList.add("caballo");
+  }
 }
 
-// Para animar, hacemos pausa
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Algoritmo backtracking con animación (async)
 async function tourCaballo(x, y, salto) {
-  if (!continuarAnimacion) return false;  // abortar si se pidió parar
-
+  if (!continuarAnimacion) return false;
   tablero[x][y] = salto;
   pintarTablero();
 
   const celda = document.getElementById(`c-${x}-${y}`);
   celda.classList.add("caballo");
-  celda.style.backgroundColor = "gold";
-  celda.style.color = "black";
 
-  await sleep(200);
-  if (!continuarAnimacion) return false;  // abortar si se pidió parar
+  await sleep(250);
+  if (!continuarAnimacion) return false;
 
   if (salto === N * N - 1) {
-    return true; // solución completa
+    return true;
   }
 
   for (let i = 0; i < 8; i++) {
@@ -80,19 +93,15 @@ async function tourCaballo(x, y, salto) {
     }
   }
 
-  if (!continuarAnimacion) return false;  // abortar si se pidió parar
-
-  // Backtracking
+  if (!continuarAnimacion) return false;
   tablero[x][y] = -1;
   pintarTablero();
   await sleep(100);
-
   return false;
 }
 
-// Manejo clic para iniciar desde la casilla clickeada
 contenedor.addEventListener("click", async (e) => {
-  if (animando) return; // prevenir que arranque otro mientras anima
+  if (animando) return;
   const target = e.target;
   if (!target.classList.contains("casilla")) return;
 
@@ -114,20 +123,21 @@ contenedor.addEventListener("click", async (e) => {
   }
 });
 
-// Botón reiniciar
 btnReiniciar.addEventListener("click", () => {
-  if (!animando) {
-    tablero = Array.from({ length: N }, () => Array(N).fill(-1));
-    pintarTablero();
-    return;
-  }
-  // Abortamos animación y limpiamos
   continuarAnimacion = false;
   animando = false;
+  N = parseInt(inputN.value);
   tablero = Array.from({ length: N }, () => Array(N).fill(-1));
+  crearTablero();
   pintarTablero();
 });
 
-// Inicializar visualmente el tablero
+inputN.addEventListener("change", () => {
+  btnReiniciar.click();
+});
+
+// Inicializar
+N = parseInt(inputN.value);
+tablero = Array.from({ length: N }, () => Array(N).fill(-1));
 crearTablero();
 pintarTablero();

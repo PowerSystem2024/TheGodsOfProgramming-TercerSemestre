@@ -1,0 +1,63 @@
+#tablero {
+    display: grid;
+    grid-template-columns: repeat(var(--n), 48px);
+    grid-template-rows: repeat(var(--n), 48px);
+    gap: 2px;
+    justify-content: center;
+    margin: 2em auto 1em auto;
+    background: #222;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px #0003;
+    width: max-content;
+    min-width: 240px;
+}
+.casilla {
+    width: 48px;
+    height: 48px;
+    background: #fffbe7;
+    border: 1px solid #bdbdbd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    user-select: none;
+}
+.casilla.negra {
+    background: #90ee90;
+}
+.caballo {
+    background: linear-gradient(90deg, #ffcc00, #ff6666) !important;
+    color: #222 !important;
+    box-shadow: 0 0 8px 3px #ffcc00;
+    font-size: 1.3em;
+    font-weight: 900;
+}
+.visitada {
+    background: #3a3a3a !important;
+    color: #ffcc00 !important;
+}
+.main-content h2 {
+    color: #ffcc00;
+    margin-bottom: 1em;
+}
+.caballo-emoji {
+  font-size: 1.5em;
+  display: block;
+  line-height: 1;
+}
+.salto-num {
+  font-size: 0.9em;
+  color: #ffcc00;
+  display: block;
+  line-height: 1;
+}
+.caballo {
+  background: linear-gradient(90deg, #ffcc00, #ff6666) !important;
+  color: #222 !important;
+  box-shadow: 0 0 8px 3px #ffcc00;
+  font-weight: 900;
+}
