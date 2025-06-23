@@ -1,0 +1,53 @@
+10:08:11 PM: DEBUG [Persona.py:54] 
+            id_persona: 1,
+            nombre: Juan,
+            apellido: Perez,
+            email: jperez@mail.com
+        
+10:08:11 PM: DEBUG [Persona.py:57] 
+            id_persona: None,
+            nombre: Jon,
+            apellido: Pez,
+            email: jpez@mail.com
+        
+10:08:11 PM: DEBUG [Persona.py:60] 
+            id_persona: 1,
+            nombre: None,
+            apellido: None,
+            email: None
+        
+10:08:34 PM: DEBUG [conexion.py:23] Conexion con exito: <connection object at 0x0000019D63AA3040; dsn: 'user=postgres password=xxx dbname=db_test host=localhost port=5432', closed: 0>
+10:08:34 PM: DEBUG [conexion.py:36] Cursor con exito: <cursor object at 0x0000019D63A7ED60; closed: 0>
+10:08:34 PM: DEBUG [persona_dao.py:79] 
+            id_persona: Marina,
+            nombre: Esparza,
+            apellido: mesparza@mail.com,
+            email: 4
+        
+10:09:43 PM: DEBUG [conexion.py:23] Conexion con exito: <connection object at 0x0000024470933040; dsn: 'user=postgres password=xxx dbname=db_test host=localhost port=5432', closed: 0>
+10:09:43 PM: DEBUG [conexion.py:36] Cursor con exito: <cursor object at 0x0000024470910D60; closed: 0>
+10:09:43 PM: DEBUG [persona_dao.py:38] Persona Insertada: 
+            id_persona: None,
+            nombre: Pepe,
+            apellido: González,
+            email: pepe@gmail.com
+        
+10:09:43 PM: DEBUG [persona_dao.py:74] Persona insertada: 1
+10:10:00 PM: DEBUG [conexion.py:23] Conexion con exito: <connection object at 0x000001B165BF9040; dsn: 'user=postgres password=xxx dbname=db_test host=localhost port=5432', closed: 0>
+10:10:00 PM: DEBUG [conexion.py:36] Cursor con exito: <cursor object at 0x000001B165BD6D60; closed: 0>
+10:10:00 PM: DEBUG [persona_dao.py:47] Persona actualizada: 
+            id_persona: 1,
+            nombre: Juan,
+            apellido: Pérez,
+            email: nuevo@gmail.com
+        
+10:10:00 PM: DEBUG [persona_dao.py:69] Persona actualizada: 0
+10:10:21 PM: DEBUG [conexion.py:23] Conexion con exito: <connection object at 0x000001D36F4C9040; dsn: 'user=postgres password=xxx dbname=db_test host=localhost port=5432', closed: 0>
+10:10:21 PM: DEBUG [conexion.py:36] Cursor con exito: <cursor object at 0x000001D36F4A6D60; closed: 0>
+10:10:21 PM: DEBUG [persona_dao.py:56] Persona eliminada: 
+            id_persona: 5,
+            nombre: None,
+            apellido: None,
+            email: None
+        
+10:10:21 PM: DEBUG [persona_dao.py:64] Persona eliminada: 1
