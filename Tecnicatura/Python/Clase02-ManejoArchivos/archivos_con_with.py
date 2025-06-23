@@ -8,5 +8,5 @@ from ManejoArchivos import ManejoArchivos
 # Utiliza diferentes metodos: __enter__ este es el que abre
 # Ahora el siguiente metodo es el que cierra: __exit__
 
-with ManejoArchivos('./prueba.txt') as archivo:
+with ManejoArchivos('prueba.txt') as archivo:
     print(archivo.read())
