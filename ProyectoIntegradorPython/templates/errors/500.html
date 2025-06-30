@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Error del servidor - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <i class="bi bi-exclamation-circle text-danger" style="font-size: 6rem;"></i>
+            <h1 class="display-1 text-muted">500</h1>
+            <h2 class="mb-4">Error interno del servidor</h2>
+            <p class="lead text-muted mb-4">
+                Lo sentimos, algo salió mal en nuestro servidor. Nuestro equipo ha sido notificado.
+            </p>
+            
+            <div class="d-grid gap-2 d-md-block">
+                <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-house"></i> Ir al Inicio
+                </a>
+                <button onclick="location.reload()" class="btn btn-outline-primary btn-lg">
+                    <i class="bi bi-arrow-clockwise"></i> Reintentar
+                </button>
+            </div>
+            
+            <div class="mt-5">
+                <div class="alert alert-info">
+                    <h6><i class="bi bi-info-circle"></i> ¿Qué puedes hacer?</h6>
+                    <ul class="list-unstyled mb-0 text-start">
+                        <li>• Intenta recargar la página</li>
+                        <li>• Verifica tu conexión a internet</li>
+                        <li>• Espera unos minutos y vuelve a intentar</li>
+                        <li>• Si el problema persiste, contacta al administrador</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

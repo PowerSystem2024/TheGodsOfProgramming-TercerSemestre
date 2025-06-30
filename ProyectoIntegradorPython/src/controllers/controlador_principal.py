@@ -4,15 +4,15 @@ Controlador principal del sistema de gestión de anuncios publicitarios
 from typing import List, Optional
 import logging
 
-from db.conexion import conectar, desconectar
-from services.datos_basicos_service import DatosBasicosService
-from services.anuncio_service import AnuncioService
-from ui.interfaz_usuario import InterfazUsuario
-from models.anuncio import Anuncio
-from models.medio_comunicacion import MedioComunicacion
-from models.tipo_modulo import TipoModulo
-from models.frecuencia_publicacion import FrecuenciaPublicacion
-from config.configuracion import Config
+from src.db.conexion import conectar, desconectar
+from src.services.datos_basicos_service import DatosBasicosService
+from src.services.anuncio_service import AnuncioService
+from src.ui.interfaz_usuario import InterfazUsuario
+from src.models.anuncio import Anuncio
+from src.models.medio_comunicacion import MedioComunicacion
+from src.models.tipo_modulo import TipoModulo
+from src.models.frecuencia_publicacion import FrecuenciaPublicacion
+from src.config.configuracion import Config
 
 
 class ControladorPrincipal:
@@ -25,11 +25,21 @@ class ControladorPrincipal:
         self.config = Config()
         self.logger = logging.getLogger(__name__)
         
+        # Inicializar servicios
+        self.datos_basicos_service = DatosBasicosService()
+        self.anuncio_service = AnuncioService()
+        
         # Datos en memoria para operaciones rápidas
         self.medios_comunicacion: List[MedioComunicacion] = []
         self.tipos_modulos: List[TipoModulo] = []
         self.frecuencias_publicacion: List[FrecuenciaPublicacion] = []
         self.anuncios: List[Anuncio] = []
+        
+        # Inicializar conexión automáticamente para web
+        try:
+            conectar()
+        except Exception as e:
+            self.logger.warning(f"Error al conectar automáticamente: {e}")
 
     def inicializar_sistema(self) -> bool:
         """

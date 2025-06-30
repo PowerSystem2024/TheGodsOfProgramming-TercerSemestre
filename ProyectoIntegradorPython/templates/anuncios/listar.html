@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Anuncios - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-megaphone"></i> Lista de Anuncios</h2>
+    <a href="{{ url_for('crear_anuncio') }}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Nuevo Anuncio
+    </a>
+</div>
+
+<!-- Formulario de búsqueda -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5><i class="bi bi-search"></i> Búsqueda Avanzada</h5>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('buscar_anuncios') }}">
+            {{ form.hidden_tag() }}
+            <div class="row">
+                <div class="col-md-3">
+                    {{ form.termino.label(class="form-label") }}
+                    {{ form.termino(class="form-control", placeholder="Buscar por código o producto...") }}
+                </div>
+                <div class="col-md-3">
+                    {{ form.medio_comunicacion.label(class="form-label") }}
+                    {{ form.medio_comunicacion(class="form-select") }}
+                </div>
+                <div class="col-md-2">
+                    {{ form.tipo_modulo.label(class="form-label") }}
+                    {{ form.tipo_modulo(class="form-select") }}
+                </div>
+                <div class="col-md-2">
+                    {{ form.precio_min.label(class="form-label") }}
+                    {{ form.precio_min(class="form-control", placeholder="Precio mín.") }}
+                </div>
+                <div class="col-md-2">
+                    {{ form.precio_max.label(class="form-label") }}
+                    {{ form.precio_max(class="form-control", placeholder="Precio máx.") }}
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    {{ form.submit(class="btn btn-primary me-2") }}
+                    <a href="{{ url_for('listar_anuncios') }}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-clockwise"></i> Limpiar
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Lista de anuncios -->
+{% if anuncios %}
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5>Resultados ({{ anuncios|length }} anuncio{{ 's' if anuncios|length != 1 else '' }})</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Código</th>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Medio</th>
+                            <th>Tipo Módulo</th>
+                            <th>Frecuencia</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for anuncio in anuncios %}
+                        <tr>
+                            <td>
+                                <strong class="text-primary">{{ anuncio.codigo }}</strong>
+                            </td>
+                            <td>
+                                <div class="fw-bold">{{ anuncio.nombre_producto }}</div>
+                                {% if anuncio.slogan %}
+                                <small class="text-muted">{{ anuncio.slogan[:50] }}...</small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="badge bg-success">${{ "%.2f"|format(anuncio.precio) }}</span>
+                            </td>
+                            <td>
+                                {{ anuncio.medio_comunicacion.nombre if anuncio.medio_comunicacion else 'N/A' }}
+                            </td>
+                            <td>
+                                {{ anuncio.tipo_modulo.nombre if anuncio.tipo_modulo else 'N/A' }}
+                            </td>
+                            <td>
+                                {{ anuncio.frecuencia_publicacion.nombre if anuncio.frecuencia_publicacion else 'N/A' }}
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="{{ url_for('ver_anuncio', anuncio_id=anuncio.id) }}" 
+                                       class="btn btn-sm btn-outline-primary" title="Ver detalles">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{{ url_for('editar_anuncio', anuncio_id=anuncio.id) }}" 
+                                       class="btn btn-sm btn-outline-warning" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" 
+                                            title="Eliminar" onclick="confirmarEliminacion('{{ anuncio.id }}', '{{ anuncio.codigo }}')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="text-center py-5">
+        <i class="bi bi-search text-muted" style="font-size: 4rem;"></i>
+        <h4 class="text-muted mt-3">No se encontraron anuncios</h4>
+        <p class="text-muted">
+            {% if request.method == 'POST' %}
+                Intenta modificar los criterios de búsqueda.
+            {% else %}
+                Crea tu primer anuncio para comenzar.
+            {% endif %}
+        </p>
+        <a href="{{ url_for('crear_anuncio') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Crear Primer Anuncio
+        </a>
+    </div>
+{% endif %}
+
+<!-- Modal de confirmación de eliminación -->
+<div class="modal fade" id="modalEliminar" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar el anuncio <strong id="codigoEliminar"></strong>?</p>
+                <p class="text-danger"><i class="bi bi-exclamation-triangle"></i> Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form method="POST" id="formEliminar" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function confirmarEliminacion(anuncioId, codigo) {
+    document.getElementById('codigoEliminar').textContent = codigo;
+    document.getElementById('formEliminar').action = '/anuncios/' + anuncioId + '/eliminar';
+    new bootstrap.Modal(document.getElementById('modalEliminar')).show();
+}
+</script>
+{% endblock %}

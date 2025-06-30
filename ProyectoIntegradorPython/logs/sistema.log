@@ -8,3 +8,339 @@
 2025-06-30 06:42:19,420 [INFO] utils.logging_config:28: Archivo de log: logs/sistema.log
 2025-06-30 06:42:19,421 [INFO] utils.logging_config:30: Iniciando Sistema de Gestión de Anuncios Publicitarios v2.0.0
 2025-06-30 06:42:19,422 [INFO] db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:06:17,453 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:06:17,453 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:06:17,456 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:06:17,551 [INFO] werkzeug:97: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-30 07:06:17,551 [INFO] werkzeug:97: [33mPress CTRL+C to quit[0m
+2025-06-30 07:06:17,552 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:06:17,876 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:06:17,877 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:06:17,880 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:06:17,895 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:06:17,898 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:06:31,504 [ERROR] src.web.routes:30: Error en página principal: 'ControladorPrincipal' object has no attribute 'anuncio_service'
+2025-06-30 07:06:31,545 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:06:31] "GET /?id=b3ce7407-c9e0-4dee-8a77-32be5a7e88db&vscodeBrowserReqId=1751277991499 HTTP/1.1" 200 -
+2025-06-30 07:06:31,658 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:06:31] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-06-30 07:06:31,670 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:06:31] "GET /static/js/app.js HTTP/1.1" 200 -
+2025-06-30 07:06:41,757 [ERROR] src.web.routes:225: Error en matriz de precios: 'ControladorPrincipal' object has no attribute 'anuncio_service'
+2025-06-30 07:06:41,764 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:06:41] "GET /matriz-precios HTTP/1.1" 200 -
+2025-06-30 07:06:41,773 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:06:41] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:06:41,774 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:06:41] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:06:58,892 [ERROR] src.web.routes:50: Error al listar anuncios: 'ControladorPrincipal' object has no attribute 'anuncio_service'
+2025-06-30 07:06:58,900 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:06:58] "GET /anuncios HTTP/1.1" 200 -
+2025-06-30 07:06:58,910 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:06:58] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:06:58,910 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:06:58] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:07:14,957 [ERROR] src.web.routes:133: Error al crear anuncio: 'ControladorPrincipal' object has no attribute 'datos_basicos_service'
+2025-06-30 07:07:14,957 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:07:14] "[32mGET /anuncios/nuevo HTTP/1.1[0m" 302 -
+2025-06-30 07:07:14,960 [ERROR] src.web.routes:50: Error al listar anuncios: 'ControladorPrincipal' object has no attribute 'anuncio_service'
+2025-06-30 07:07:14,961 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:07:14] "GET /anuncios HTTP/1.1" 200 -
+2025-06-30 07:07:14,968 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:07:14] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:07:14,968 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:07:14] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:08:34,883 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\init_web.py', reloading
+2025-06-30 07:08:34,925 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:08:35,294 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:08:35,294 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:08:35,298 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:08:35,315 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:08:35,319 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:10:16,851 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\controllers\\controlador_principal.py', reloading
+2025-06-30 07:10:16,881 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:10:17,199 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:10:17,199 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:10:17,202 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:10:17,217 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:10:17,220 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:10:33,478 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\controllers\\controlador_principal.py', reloading
+2025-06-30 07:10:33,515 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:10:33,841 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:10:33,843 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:10:33,845 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:10:33,848 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:10:33,863 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:10:33,867 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:11:00,279 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\routes.py', reloading
+2025-06-30 07:11:00,307 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:11:00,623 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:11:00,624 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:11:00,627 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:11:00,642 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:11:00,646 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:11:19,947 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\routes.py', reloading
+2025-06-30 07:11:19,974 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:11:20,301 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:11:20,301 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:11:20,303 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:11:20,303 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:11:20,306 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:11:20,321 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:11:20,325 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:11:37,602 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\routes.py', reloading
+2025-06-30 07:11:37,633 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:11:37,953 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:11:37,953 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:11:37,956 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:11:37,956 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:11:37,960 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:11:37,975 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:11:37,978 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:12:11,154 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:12:11,156 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:12:11,158 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:12:11,158 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:12:11,161 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:12:11,184 [INFO] werkzeug:97: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-30 07:12:11,185 [INFO] werkzeug:97: [33mPress CTRL+C to quit[0m
+2025-06-30 07:12:11,186 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:12:11,533 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:12:11,533 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:12:11,536 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:12:11,537 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:12:11,540 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:12:11,554 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:12:11,558 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:12:25,442 [ERROR] src.web.routes:46: Error en página principal: 'AnuncioService' object has no attribute 'listar_anuncios'
+2025-06-30 07:12:25,451 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:12:25] "GET /?id=b3ce7407-c9e0-4dee-8a77-32be5a7e88db&vscodeBrowserReqId=1751278345437 HTTP/1.1" 200 -
+2025-06-30 07:12:25,539 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:12:25] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:12:25,548 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:12:25] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:12:34,886 [ERROR] src.web.routes:69: Error al listar anuncios: 'AnuncioService' object has no attribute 'listar_anuncios'
+2025-06-30 07:12:34,894 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:12:34] "GET /anuncios HTTP/1.1" 200 -
+2025-06-30 07:12:34,903 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:12:34] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:12:34,903 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:12:34] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:12:45,971 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\routes.py', reloading
+2025-06-30 07:12:46,000 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:12:46,071 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\routes.py', reloading
+2025-06-30 07:12:46,105 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:12:46,344 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:12:46,344 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:12:46,348 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:12:46,348 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:12:46,352 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:12:46,367 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:12:46,370 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:12:46,453 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:12:46,454 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:12:46,456 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:12:46,457 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:12:46,461 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:12:46,480 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:12:46,484 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:12:55,528 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\routes.py', reloading
+2025-06-30 07:12:55,557 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:12:55,642 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\routes.py', reloading
+2025-06-30 07:12:55,676 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:12:55,901 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:12:55,902 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:12:55,904 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:12:55,904 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:12:55,908 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:12:55,925 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:12:55,929 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:12:56,021 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:12:56,021 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:12:56,024 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:12:56,024 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:12:56,027 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:12:56,043 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:12:56,047 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:13:14,212 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\routes.py', reloading
+2025-06-30 07:13:14,240 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:13:14,331 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\routes.py', reloading
+2025-06-30 07:13:14,363 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:13:14,577 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:13:14,578 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:13:14,580 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:13:14,580 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:13:14,584 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:13:14,599 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:13:14,602 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:13:14,691 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:13:14,691 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:13:14,694 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:13:14,694 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:13:14,697 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:13:14,713 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:13:14,717 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:14:26,641 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\app.py', reloading
+2025-06-30 07:14:26,671 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:14:26,753 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\app.py', reloading
+2025-06-30 07:14:26,788 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:14:27,024 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:14:27,025 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:14:27,027 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:14:27,027 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:14:27,031 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:14:27,046 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:14:27,050 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:14:27,134 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:14:27,135 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:14:27,137 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:14:27,137 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:14:27,141 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:14:27,157 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:14:27,160 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:14:28,095 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\init_web.py', reloading
+2025-06-30 07:14:28,129 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:14:28,478 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:14:28,478 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:14:28,481 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:14:28,481 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:14:28,485 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:14:28,501 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:14:28,505 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:14:29,217 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\db\\conexion.py', reloading
+2025-06-30 07:14:29,249 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:14:29,550 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\main.py', reloading
+2025-06-30 07:14:29,574 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:14:29,574 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:14:29,577 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:14:29,577 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:14:29,581 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:14:29,583 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:14:29,598 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:14:29,602 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:14:29,903 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:14:29,903 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:14:29,905 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:14:29,906 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:14:29,909 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:14:29,925 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:14:29,928 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:14:30,646 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\services\\anuncio_service.py', reloading
+2025-06-30 07:14:30,676 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:14:30,974 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\ui\\interfaz_usuario.py', reloading
+2025-06-30 07:14:31,009 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:14:31,014 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:14:31,016 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:14:31,018 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:14:31,018 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:14:31,022 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:14:31,039 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:14:31,042 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:14:31,336 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:14:31,338 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:14:31,340 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:14:31,340 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:14:31,343 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:14:31,358 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:14:31,362 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:14:32,085 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\__init__.py', reloading
+2025-06-30 07:14:32,118 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:14:32,403 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\__init__.py', reloading
+2025-06-30 07:14:32,434 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:14:32,470 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:14:32,470 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:14:32,473 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:14:32,473 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:14:32,477 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:14:32,493 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:14:32,496 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:14:32,763 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:14:32,764 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:14:32,766 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:14:32,767 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:14:32,770 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:14:32,787 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:14:32,791 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:16:00,774 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\services\\anuncio_service.py', reloading
+2025-06-30 07:16:00,806 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:16:01,143 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:16:01,144 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:16:01,147 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:16:01,147 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:16:01,150 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:16:01,166 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:16:01,169 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:16:19,455 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\services\\datos_basicos_service.py', reloading
+2025-06-30 07:16:19,491 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:16:19,830 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:16:19,831 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:16:19,833 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:16:19,833 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:16:19,836 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:16:19,852 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:16:19,855 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:16:32,051 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\routes.py', reloading
+2025-06-30 07:16:32,081 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:16:32,410 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:16:32,411 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:16:32,413 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:16:32,413 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:16:32,416 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:16:32,432 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:16:32,436 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:16:40,582 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\routes.py', reloading
+2025-06-30 07:16:40,611 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:16:40,932 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:16:40,933 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:16:40,935 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:16:40,935 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:16:40,938 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:16:40,954 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:16:40,957 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:16:50,109 [INFO] werkzeug:97:  * Detected change in 'J:\\Documents\\Repositorios\\TheGodsOfProgramming-TercerSemestre\\ProyectoIntegradorPython\\src\\web\\routes.py', reloading
+2025-06-30 07:16:50,140 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:16:50,462 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:16:50,462 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:16:50,465 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:16:50,465 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:16:50,468 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:16:50,485 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:16:50,488 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:16:59,925 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:16:59,925 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:16:59,927 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:16:59,928 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:16:59,931 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:16:59,955 [INFO] werkzeug:97: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-30 07:16:59,955 [INFO] werkzeug:97: [33mPress CTRL+C to quit[0m
+2025-06-30 07:16:59,956 [INFO] werkzeug:97:  * Restarting with stat
+2025-06-30 07:17:00,295 [INFO] src.utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 07:17:00,297 [INFO] src.utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 07:17:00,299 [INFO] src.db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 07:17:00,299 [INFO] src.web.routes:18: Controlador inicializado correctamente
+2025-06-30 07:17:00,302 [INFO] __main__:29: Iniciando aplicación Flask
+2025-06-30 07:17:00,318 [WARNING] werkzeug:97:  * Debugger is active!
+2025-06-30 07:17:00,321 [INFO] werkzeug:97:  * Debugger PIN: 201-890-652
+2025-06-30 07:17:09,909 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:09] "GET /?id=fc3604b1-a1ec-4165-b9ba-2193671c74d6&vscodeBrowserReqId=1751278629888 HTTP/1.1" 200 -
+2025-06-30 07:17:10,029 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:10] "GET /static/js/app.js HTTP/1.1" 200 -
+2025-06-30 07:17:10,042 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:10] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-06-30 07:17:12,445 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:12] "GET /anuncios HTTP/1.1" 200 -
+2025-06-30 07:17:12,455 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:12] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:17:12,455 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:12] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:17:23,093 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:23] "GET / HTTP/1.1" 200 -
+2025-06-30 07:17:23,101 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:23] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:17:23,101 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:23] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:17:26,313 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:26] "GET /matriz-precios HTTP/1.1" 200 -
+2025-06-30 07:17:26,324 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:26] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:17:26,324 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:26] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:17:41,327 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:41] "GET /anuncios HTTP/1.1" 200 -
+2025-06-30 07:17:41,336 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:41] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:17:41,336 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:41] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:17:47,961 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:47] "GET /anuncios/nuevo HTTP/1.1" 200 -
+2025-06-30 07:17:47,970 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:47] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:17:47,970 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:47] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:17:50,123 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:50] "GET / HTTP/1.1" 200 -
+2025-06-30 07:17:50,130 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:50] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:17:50,131 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:50] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:17:53,278 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:53] "GET /anuncios HTTP/1.1" 200 -
+2025-06-30 07:17:53,287 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:53] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:17:53,287 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:53] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:17:58,183 [ERROR] src.web.routes:177: Error al ver anuncio: 'AnuncioService' object has no attribute 'obtener_anuncio_por_id'
+2025-06-30 07:17:58,184 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:58] "[32mGET /anuncios/686254737a4995c299f45fe0 HTTP/1.1[0m" 302 -
+2025-06-30 07:17:58,189 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:58] "GET /anuncios HTTP/1.1" 200 -
+2025-06-30 07:17:58,198 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:58] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:17:58,198 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:17:58] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:18:01,145 [ERROR] src.web.routes:177: Error al ver anuncio: 'AnuncioService' object has no attribute 'obtener_anuncio_por_id'
+2025-06-30 07:18:01,145 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:18:01] "[32mGET /anuncios/686254737a4995c299f45fe0 HTTP/1.1[0m" 302 -
+2025-06-30 07:18:01,151 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:18:01] "GET /anuncios HTTP/1.1" 200 -
+2025-06-30 07:18:01,161 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:18:01] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:18:01,161 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:18:01] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-06-30 07:18:05,356 [ERROR] src.web.routes:224: Error al editar anuncio: 'AnuncioService' object has no attribute 'obtener_anuncio_por_id'
+2025-06-30 07:18:05,356 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:18:05] "[32mGET /anuncios/686254737a4995c299f45fe0/editar HTTP/1.1[0m" 302 -
+2025-06-30 07:18:05,361 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:18:05] "GET /anuncios HTTP/1.1" 200 -
+2025-06-30 07:18:05,371 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:18:05] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-30 07:18:05,371 [INFO] werkzeug:97: 127.0.0.1 - - [30/Jun/2025 07:18:05] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -

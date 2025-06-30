@@ -1,5 +1,10 @@
 # Dependencias para el proyecto de gestión de anuncios publicitarios
 
+# Framework web
+Flask>=2.3.0
+Flask-WTF>=1.1.0
+WTForms>=3.0.0
+
 # Base de datos MongoDB
 mongoengine>=0.27.0
 pymongo>=4.0.0
@@ -11,7 +16,8 @@ pytest-mock>=3.10.0
 # Utilities
 python-dotenv>=1.0.0
 
-# Si necesitas agregar más dependencias en el futuro, añádelas aquí:
-# Por ejemplo:
-# requests==2.31.0
-# beautifulsoup4==4.12.2
+# Formularios y validación web
+email-validator>=2.0.0
+
+# Desarrollo web
+Werkzeug>=2.3.0

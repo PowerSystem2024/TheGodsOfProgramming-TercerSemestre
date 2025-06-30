@@ -1,10 +1,10 @@
 """
 Servicio para gestionar los anuncios publicitarios
 """
-from models.anuncio import Anuncio
-from models.medio_comunicacion import MedioComunicacion
-from models.tipo_modulo import TipoModulo
-from models.frecuencia_publicacion import FrecuenciaPublicacion
+from src.models.anuncio import Anuncio
+from src.models.medio_comunicacion import MedioComunicacion
+from src.models.tipo_modulo import TipoModulo
+from src.models.frecuencia_publicacion import FrecuenciaPublicacion
 
 class AnuncioService:
     
@@ -33,6 +33,17 @@ class AnuncioService:
         anuncio.save()
         return anuncio
     
+    # Método alias para compatibilidad con la aplicación web
+    @staticmethod
+    def listar_anuncios():
+        """
+        Alias para obtener_todos_los_anuncios() - compatibilidad web
+        
+        Returns:
+            list: Lista de anuncios activos
+        """
+        return AnuncioService.obtener_todos_los_anuncios()
+    
     @staticmethod
     def obtener_todos_los_anuncios():
         """
@@ -43,145 +54,207 @@ class AnuncioService:
         """
         return list(Anuncio.objects(activo=True).all())
     
+    # Método para búsqueda avanzada web
     @staticmethod
-    def buscar_anuncios_por_empresa(nombre_empresa):
+    def buscar_anuncios(criterios):
         """
-        Busca anuncios por nombre de empresa (case-insensitive)
+        Busca anuncios según criterios múltiples (para aplicación web)
         
         Args:
-            nombre_empresa (str): El nombre de la empresa a buscar
+            criterios (dict): Diccionario con criterios de búsqueda
             
         Returns:
-            list: Lista de anuncios encontrados
+            list: Lista de anuncios que cumplen los criterios
         """
-        # Búsqueda case-insensitive usando regex
-        return list(Anuncio.objects(
-            empresa__iregex=f"^{nombre_empresa}$",
-            activo=True
-        ).all())
+        query = Anuncio.objects(activo=True)
+        
+        if 'termino' in criterios and criterios['termino']:
+            # Búsqueda por término en empresa
+            query = query.filter(empresa__icontains=criterios['termino'])
+            
+        if 'medio_comunicacion_id' in criterios and criterios['medio_comunicacion_id']:
+            query = query.filter(medio=criterios['medio_comunicacion_id'])
+            
+        if 'tipo_modulo_id' in criterios and criterios['tipo_modulo_id']:
+            query = query.filter(modulo=criterios['tipo_modulo_id'])
+            
+        if 'precio_min' in criterios and criterios['precio_min'] is not None:
+            query = query.filter(precio__gte=criterios['precio_min'])
+            
+        if 'precio_max' in criterios and criterios['precio_max'] is not None:
+            query = query.filter(precio__lte=criterios['precio_max'])
+            
+        return list(query.all())
     
+    # Método para crear anuncio desde formulario web
     @staticmethod
-    def obtener_anuncio_por_id(anuncio_id):
+    def crear_anuncio_web(datos_anuncio):
         """
-        Obtiene un anuncio por su ID
+        Crea un anuncio desde formulario web
         
         Args:
-            anuncio_id (str): El ID del anuncio
+            datos_anuncio (dict): Datos del formulario web
             
         Returns:
-            Anuncio: El anuncio encontrado o None
+            dict: Resultado de la operación
         """
         try:
-            return Anuncio.objects(id=anuncio_id, activo=True).first()
-        except:
-            return None
-    
-    @staticmethod
-    def actualizar_anuncio(anuncio):
-        """
-        Actualiza un anuncio en la base de datos
-        
-        Args:
-            anuncio (Anuncio): El anuncio a actualizar
+            # Obtener objetos de referencias
+            medio = MedioComunicacion.objects.get(id=datos_anuncio['medio_comunicacion_id'])
+            modulo = TipoModulo.objects.get(id=datos_anuncio['tipo_modulo_id'])
+            frecuencia = FrecuenciaPublicacion.objects.get(id=datos_anuncio['frecuencia_publicacion_id'])
             
-        Returns:
-            Anuncio: El anuncio actualizado
-        """
-        anuncio.save()
-        return anuncio
-    
-    @staticmethod
-    def actualizar_anuncio_por_id(anuncio_id, **kwargs):
-        """
-        Actualiza un anuncio por su ID con parámetros específicos
-        
-        Args:
-            anuncio_id (str): ID del anuncio a actualizar
-            **kwargs: Campos a actualizar (empresa, precio, etc.)
+            # Crear anuncio con datos adicionales para web
+            anuncio = Anuncio(
+                codigo=datos_anuncio['codigo'],
+                nombre_producto=datos_anuncio['nombre_producto'],
+                slogan=datos_anuncio.get('slogan', ''),
+                descripcion=datos_anuncio.get('descripcion', ''),
+                medio=medio,
+                modulo=modulo,
+                frecuencia=frecuencia,
+                precio=datos_anuncio['precio'],
+                empresa=datos_anuncio['codigo']  # Usar código como empresa por compatibilidad
+            )
+            anuncio.save()
             
-        Returns:
-            Anuncio: El anuncio actualizado o None si no se encontró
-        """
-        try:
-            anuncio = Anuncio.objects(id=anuncio_id, activo=True).first()
-            if anuncio:
-                for campo, valor in kwargs.items():
-                    if hasattr(anuncio, campo):
-                        setattr(anuncio, campo, valor)
-                anuncio.save()
-                return anuncio
-            return None
+            return {
+                'exitoso': True,
+                'anuncio': anuncio,
+                'mensaje': 'Anuncio creado exitosamente'
+            }
+            
         except Exception as e:
-            print(f"❌ Error al actualizar anuncio: {e}")
-            return None
+            return {
+                'exitoso': False,
+                'mensaje': f'Error al crear anuncio: {str(e)}'
+            }
     
+    # Método para actualizar anuncio desde web
     @staticmethod
-    def eliminar_anuncio(anuncio_id):
+    def actualizar_anuncio_web(anuncio_id, datos_anuncio):
+        """
+        Actualiza un anuncio desde formulario web
+        
+        Args:
+            anuncio_id (str): ID del anuncio
+            datos_anuncio (dict): Datos actualizados
+            
+        Returns:
+            dict: Resultado de la operación
+        """
+        try:
+            anuncio = Anuncio.objects.get(id=anuncio_id, activo=True)
+            
+            # Actualizar campos
+            anuncio.codigo = datos_anuncio['codigo']
+            anuncio.nombre_producto = datos_anuncio['nombre_producto']
+            anuncio.slogan = datos_anuncio.get('slogan', '')
+            anuncio.descripcion = datos_anuncio.get('descripcion', '')
+            anuncio.precio = datos_anuncio['precio']
+            anuncio.empresa = datos_anuncio['codigo']  # Usar código como empresa
+            
+            # Actualizar referencias
+            if 'medio_comunicacion_id' in datos_anuncio:
+                anuncio.medio = MedioComunicacion.objects.get(id=datos_anuncio['medio_comunicacion_id'])
+            if 'tipo_modulo_id' in datos_anuncio:
+                anuncio.modulo = TipoModulo.objects.get(id=datos_anuncio['tipo_modulo_id'])
+            if 'frecuencia_publicacion_id' in datos_anuncio:
+                anuncio.frecuencia = FrecuenciaPublicacion.objects.get(id=datos_anuncio['frecuencia_publicacion_id'])
+                
+            anuncio.save()
+            
+            return {
+                'exitoso': True,
+                'anuncio': anuncio,
+                'mensaje': 'Anuncio actualizado exitosamente'
+            }
+            
+        except Anuncio.DoesNotExist:
+            return {
+                'exitoso': False,
+                'mensaje': 'Anuncio no encontrado'
+            }
+        except Exception as e:
+            return {
+                'exitoso': False,
+                'mensaje': f'Error al actualizar anuncio: {str(e)}'
+            }
+    
+    # Método para eliminar anuncio (lógicamente)
+    @staticmethod
+    def eliminar_anuncio_web(anuncio_id):
         """
         Elimina un anuncio (marcado como inactivo)
         
         Args:
-            anuncio_id (str): El ID del anuncio a eliminar
+            anuncio_id (str): ID del anuncio
             
         Returns:
-            bool: True si se eliminó exitosamente
+            dict: Resultado de la operación
         """
         try:
-            anuncio = Anuncio.objects(id=anuncio_id).first()
-            if anuncio:
-                anuncio.activo = False
-                anuncio.save()
-                return True
-            return False
-        except:
-            return False
+            anuncio = Anuncio.objects.get(id=anuncio_id, activo=True)
+            anuncio.activo = False
+            anuncio.save()
+            
+            return {
+                'exitoso': True,
+                'mensaje': 'Anuncio eliminado exitosamente'
+            }
+            
+        except Anuncio.DoesNotExist:
+            return {
+                'exitoso': False,
+                'mensaje': 'Anuncio no encontrado'
+            }
+        except Exception as e:
+            return {
+                'exitoso': False,
+                'mensaje': f'Error al eliminar anuncio: {str(e)}'
+            }
     
+    # Método para generar matriz de precios
     @staticmethod
-    def calcular_ingresos_totales():
+    def generar_matriz_precios():
         """
-        Calcula el total de ingresos de todos los anuncios activos
+        Genera matriz de análisis de precios por medio y tipo de módulo
         
         Returns:
-            float: Total de ingresos
+            dict: Matriz organizada por medio -> tipo -> estadísticas
         """
         anuncios = Anuncio.objects(activo=True).all()
-        return sum(anuncio.precio for anuncio in anuncios)
-    
-    @staticmethod
-    def inicializar_anuncios_prueba(medios, modulos, frecuencias):
-        """
-        Crea anuncios de prueba si la base de datos está vacía
+        matriz = {}
         
-        Args:
-            medios (list): Lista de medios de comunicación
-            modulos (list): Lista de tipos de módulos
-            frecuencias (list): Lista de frecuencias de publicación
-        """
-        # Verificar si ya existen anuncios
-        if Anuncio.objects(activo=True).count() > 0:
-            print("✅ Ya existen anuncios en la base de datos")
-            return
+        for anuncio in anuncios:
+            if not anuncio.medio or not anuncio.modulo:
+                continue
+                
+            medio_nombre = anuncio.medio.nombre
+            modulo_nombre = anuncio.modulo.nombre
+            
+            if medio_nombre not in matriz:
+                matriz[medio_nombre] = {}
+            
+            if modulo_nombre not in matriz[medio_nombre]:
+                matriz[medio_nombre][modulo_nombre] = {
+                    'precios': [],
+                    'cantidad': 0,
+                    'promedio': 0,
+                    'minimo': 0,
+                    'maximo': 0
+                }
+            
+            matriz[medio_nombre][modulo_nombre]['precios'].append(anuncio.precio)
+            matriz[medio_nombre][modulo_nombre]['cantidad'] += 1
         
-        # Datos de anuncios de prueba
-        anuncios_prueba = [
-            (medios[0], modulos[3], frecuencias[1], 2500.0, "Tech Solutions Inc."),
-            (medios[1], modulos[1], frecuencias[0], 1800.0, "Innovate Corp."),
-            (medios[2], modulos[5], frecuencias[6], 4300.0, "Global Industries Ltd."),
-            (medios[3], modulos[0], frecuencias[2], 500.0, "Creative Designs Studio"),
-            (medios[4], modulos[2], frecuencias[4], 1300.0, "Marketing Masters"),
-            (medios[5], modulos[7], frecuencias[7], 1000.0, "Digital Dynamics"),
-            (medios[0], modulos[4], frecuencias[3], 200.0, "Code Wizards"),
-            (medios[1], modulos[6], frecuencias[5], 900.0, "Future Vision"),
-            (medios[2], modulos[0], frecuencias[0], 2100.0, "Open Source Solutions"),
-            (medios[3], modulos[2], frecuencias[1], 2100.0, "Web Dev Experts"),
-            (medios[4], modulos[1], frecuencias[4], 2100.0, "Marketing Masters")
-        ]
+        # Calcular estadísticas
+        for medio in matriz:
+            for modulo in matriz[medio]:
+                precios = matriz[medio][modulo]['precios']
+                if precios:
+                    matriz[medio][modulo]['promedio'] = sum(precios) / len(precios)
+                    matriz[medio][modulo]['minimo'] = min(precios)
+                    matriz[medio][modulo]['maximo'] = max(precios)
         
-        anuncios_creados = []
-        for medio, modulo, frecuencia, precio, empresa in anuncios_prueba:
-            anuncio = AnuncioService.crear_anuncio(medio, modulo, frecuencia, precio, empresa)
-            anuncios_creados.append(anuncio)
-            print(f"✅ Anuncio creado: {empresa} - ${precio}")
-        
-        print(f"✅ {len(anuncios_creados)} anuncios de prueba creados")
-        return anuncios_creados
+        return matriz

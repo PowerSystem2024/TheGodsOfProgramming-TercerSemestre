@@ -1,9 +1,9 @@
 """
 Servicio para gestionar los datos básicos (medios, módulos, frecuencias)
 """
-from models.medio_comunicacion import MedioComunicacion
-from models.tipo_modulo import TipoModulo
-from models.frecuencia_publicacion import FrecuenciaPublicacion
+from src.models.medio_comunicacion import MedioComunicacion
+from src.models.tipo_modulo import TipoModulo
+from src.models.frecuencia_publicacion import FrecuenciaPublicacion
 
 class DatosBasicosService:
     
@@ -97,3 +97,19 @@ class DatosBasicosService:
         Obtiene todas las frecuencias de publicación de la base de datos
         """
         return list(FrecuenciaPublicacion.objects.all())
+    
+    # Métodos alias para compatibilidad con la aplicación web
+    @staticmethod
+    def listar_medios_comunicacion():
+        """Alias para obtener_todos_los_medios() - compatibilidad web"""
+        return DatosBasicosService.obtener_todos_los_medios()
+    
+    @staticmethod
+    def listar_tipos_modulo():
+        """Alias para obtener_todos_los_modulos() - compatibilidad web"""
+        return DatosBasicosService.obtener_todos_los_modulos()
+    
+    @staticmethod
+    def listar_frecuencias_publicacion():
+        """Alias para obtener_todas_las_frecuencias() - compatibilidad web"""
+        return DatosBasicosService.obtener_todas_las_frecuencias()

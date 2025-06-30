@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Configuración - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2><i class="bi bi-gear"></i> Configuración del Sistema</h2>
+        <p class="text-muted">Gestiona los datos básicos del sistema de anuncios publicitarios.</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-broadcast text-primary" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-3">Medios de Comunicación</h5>
+                <p class="card-text">Gestiona los diferentes medios donde se publican los anuncios.</p>
+                <a href="{{ url_for('listar_medios') }}" class="btn btn-primary">
+                    <i class="bi bi-list"></i> Gestionar Medios
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-grid text-success" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-3">Tipos de Módulo</h5>
+                <p class="card-text">Configura los diferentes tamaños de módulos publicitarios.</p>
+                <a href="{{ url_for('listar_tipos') }}" class="btn btn-success">
+                    <i class="bi bi-list"></i> Gestionar Tipos
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-clock text-warning" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-3">Frecuencias de Publicación</h5>
+                <p class="card-text">Define las frecuencias de publicación disponibles.</p>
+                <a href="{{ url_for('listar_frecuencias') }}" class="btn btn-warning">
+                    <i class="bi bi-list"></i> Gestionar Frecuencias
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="alert alert-info">
+            <h6><i class="bi bi-info-circle"></i> Información importante:</h6>
+            <ul class="mb-0">
+                <li>Los cambios en los datos básicos afectan a todos los anuncios relacionados</li>
+                <li>No se pueden eliminar elementos que estén siendo utilizados por anuncios activos</li>
+                <li>Se recomienda revisar la matriz de precios después de hacer cambios</li>
+                <li>Los datos básicos se inicializan automáticamente al instalar el sistema</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

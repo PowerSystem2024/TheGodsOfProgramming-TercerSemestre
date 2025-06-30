@@ -1,18 +1,61 @@
 # Proyecto Integrador - Sistema de Gestión de Anuncios Publicitarios
 
+## 🌐 **NUEVO: Versión Web con Flask**
+
+Este proyecto ahora incluye una **interfaz web moderna** desarrollada con Flask, además de la versión original de consola. Ambas versiones comparten la misma base de datos MongoDB y funcionalidades.
+
+### 🚀 **Inicio Rápido - Versión Web**
+
+```bash
+# 1. Instalar dependencias
+pip install -r requirements.txt
+
+# 2. Verificar sistema (automático)
+python init_web.py
+
+# 3. Iniciar aplicación web
+python app.py
+
+# 4. Abrir navegador en: http://localhost:5000
+```
+
+### 📱 **Características de la Versión Web**
+- **🎨 Interfaz moderna**: Bootstrap 5 + diseño responsive
+- **📊 Dashboard interactivo**: Estadísticas y vista general
+- **🔍 Búsqueda avanzada**: Filtros múltiples en tiempo real
+- **📝 Formularios validados**: Creación/edición con validación
+- **📈 Matriz de precios visual**: Análisis gráfico de datos
+- **⚙️ Configuración web**: Gestión de datos básicos
+- **📱 Responsive**: Funciona en móviles, tablets y desktop
+
+---
+
+# Sistema Original de Consola
+
 Este proyecto es una adaptación a Python del sistema de gestión de anuncios publicitarios originalmente desarrollado en Java. El sistema permite gestionar anuncios publicitarios para diferentes medios de comunicación, con distintos tipos de módulos y frecuencias de publicación.
 
 **🎯 Características principales:**
+- **Interfaz Web Moderna**: Aplicación web desarrollada con Flask
+- **Interfaz de Consola**: Opción de uso por consola (versión legacy)
 - **Persistencia en MongoDB**: Todos los datos se almacenan en una base de datos MongoDB
-- **Interfaz de consola interactiva**: Menú fácil de usar
 - **CRUD completo**: Crear, leer, actualizar y eliminar anuncios
 - **Búsquedas avanzadas**: Buscar por empresa, calcular ingresos totales
+- **Matriz de precios**: Análisis visual de precios por medio y tipo
+- **Responsive Design**: Funciona en móviles, tablets y desktop
 - **Datos de prueba preconfigurados**: Sistema listo para usar
 
 ## Funcionalidades
 
-El sistema ofrece las siguientes funcionalidades a través de un menú interactivo:
+El sistema ofrece las siguientes funcionalidades:
 
+### Via Web (Recomendado)
+1. **Dashboard**: Vista general con estadísticas
+2. **Gestión de Anuncios**: CRUD completo con interfaz moderna
+3. **Búsqueda Avanzada**: Filtros por medio, tipo, precio
+4. **Matriz de Precios**: Análisis visual de precios
+5. **Configuración**: Gestión de medios, tipos y frecuencias
+
+### Via Consola (Legacy)
 1. **Mostrar precios**: Visualiza la matriz de precios según el tipo de módulo y frecuencia de publicación
 2. **Agregar anuncio**: Permite crear un nuevo anuncio seleccionando medio, módulo, frecuencia y empresa
 3. **Eliminar anuncio**: Elimina un anuncio existente por su ID

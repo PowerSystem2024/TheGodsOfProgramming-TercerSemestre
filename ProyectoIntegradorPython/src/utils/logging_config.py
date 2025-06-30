@@ -4,7 +4,7 @@ Configuración del sistema de logging para el proyecto
 import os
 import logging
 import logging.config
-from config.configuracion import Config
+from src.config.configuracion import Config
 
 
 def configurar_logging():

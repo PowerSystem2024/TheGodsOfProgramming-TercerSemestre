@@ -3,7 +3,7 @@ Configuración de conexión a MongoDB
 """
 import mongoengine as me
 import logging
-from config.configuracion import Config
+from src.config.configuracion import Config
 
 logger = logging.getLogger(__name__)
 config = Config()
