@@ -1,16 +1,30 @@
 """
 Representa una frecuencia de publicación para un anuncio
 """
+import mongoengine as me
 
-class FrecuenciaPublicacion:
-    def __init__(self, nombre):
+class FrecuenciaPublicacion(me.Document):
+    """
+    Modelo de datos para frecuencias de publicación usando MongoDB
+    """
+    nombre = me.StringField(required=True, unique=True, max_length=50)
+    
+    # Configuración de la colección
+    meta = {
+        'collection': 'frecuencias_publicacion',
+        'indexes': ['nombre']
+    }
+    
+    def __init__(self, nombre=None, *args, **kwargs):
         """
         Constructor de la clase FrecuenciaPublicacion.
         
         Args:
             nombre (str): El nombre de la frecuencia de publicación.
         """
-        self.nombre = nombre
+        super().__init__(*args, **kwargs)
+        if nombre:
+            self.nombre = nombre
 
     def get_nombre(self):
         """
@@ -32,3 +46,6 @@ class FrecuenciaPublicacion:
 
     def __str__(self):
         return self.nombre
+    
+    def __repr__(self):
+        return f"FrecuenciaPublicacion(nombre='{self.nombre}')"

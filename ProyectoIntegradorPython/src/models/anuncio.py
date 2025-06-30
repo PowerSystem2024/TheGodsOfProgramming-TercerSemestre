@@ -1,13 +1,36 @@
 """
 Representa un anuncio publicitario
 """
-
+import mongoengine as me
+from datetime import datetime
 from .medio_comunicacion import MedioComunicacion
 from .tipo_modulo import TipoModulo
 from .frecuencia_publicacion import FrecuenciaPublicacion
 
-class Anuncio:
-    def __init__(self, medio, modulo, frecuencia, precio, empresa):
+class Anuncio(me.Document):
+    """
+    Modelo de datos para anuncios publicitarios usando MongoDB
+    """
+    medio = me.ReferenceField(MedioComunicacion, required=True)
+    modulo = me.ReferenceField(TipoModulo, required=True)
+    frecuencia = me.ReferenceField(FrecuenciaPublicacion, required=True)
+    precio = me.FloatField(required=True, min_value=0)
+    empresa = me.StringField(required=True, max_length=200)
+    fecha_creacion = me.DateTimeField(default=datetime.utcnow)
+    activo = me.BooleanField(default=True)
+    
+    # Configuración de la colección
+    meta = {
+        'collection': 'anuncios',
+        'indexes': [
+            'empresa',
+            'fecha_creacion',
+            'activo',
+            ('medio', 'modulo', 'frecuencia')  # Índice compuesto
+        ]
+    }
+    
+    def __init__(self, medio=None, modulo=None, frecuencia=None, precio=None, empresa=None, *args, **kwargs):
         """
         Constructor de la clase Anuncio.
         
@@ -18,11 +41,17 @@ class Anuncio:
             precio (float): El precio del anuncio.
             empresa (str): El nombre de la empresa del anuncio.
         """
-        self.medio = medio
-        self.modulo = modulo
-        self.frecuencia = frecuencia
-        self.precio = precio
-        self.empresa = empresa
+        super().__init__(*args, **kwargs)
+        if medio:
+            self.medio = medio
+        if modulo:
+            self.modulo = modulo
+        if frecuencia:
+            self.frecuencia = frecuencia
+        if precio is not None:
+            self.precio = precio
+        if empresa:
+            self.empresa = empresa
 
     def get_medio(self):
         """
@@ -115,4 +144,7 @@ class Anuncio:
         self.empresa = empresa
 
     def __str__(self):
-        return f"Anuncio: {self.empresa} - {self.medio.nombre} - {self.modulo.nombre} - {self.frecuencia.nombre} - ${self.precio}"
+        return f"Anuncio: {self.empresa} - {self.medio.nombre if self.medio else 'N/A'} - {self.modulo.nombre if self.modulo else 'N/A'} - {self.frecuencia.nombre if self.frecuencia else 'N/A'} - ${self.precio}"
+    
+    def __repr__(self):
+        return f"Anuncio(empresa='{self.empresa}', precio={self.precio})"

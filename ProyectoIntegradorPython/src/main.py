@@ -1,16 +1,16 @@
 """
 Proyecto Integrador - Sistema de Gestión de Anuncios Publicitarios
-Adaptación a Python del proyecto original en Java
+Adaptación a Python del proyecto original en Java con persistencia en MongoDB
 """
 
-from models.medio_comunicacion import MedioComunicacion
-from models.tipo_modulo import TipoModulo
-from models.frecuencia_publicacion import FrecuenciaPublicacion
+from db.conexion import conectar, desconectar
+from services.datos_basicos_service import DatosBasicosService
+from services.anuncio_service import AnuncioService
 from models.anuncio import Anuncio
 
 class ProyectoIntegrador:
     def __init__(self):
-        # Listas para almacenar los datos del sistema
+        # Listas para trabajar en memoria (cargadas desde MongoDB)
         self.medios_comunicacion = []
         self.tipos_modulos = []
         self.frecuencias_publicacion = []
@@ -30,73 +30,53 @@ class ProyectoIntegrador:
 
     def inicializar_datos(self):
         """
-        Inicializa los datos del programa (medios, módulos, frecuencias y anuncios de prueba).
+        Inicializa los datos del programa cargándolos desde MongoDB.
+        Si no existen, los crea.
         """
-        # Inicializar medios de comunicación
-        self.medios_comunicacion = [
-            MedioComunicacion("El Norteño"),
-            MedioComunicacion("Del Sur"),
-            MedioComunicacion("Patagónico"),
-            MedioComunicacion("Del Centro"),
-            MedioComunicacion("El Cuyano"),
-            MedioComunicacion("Del Litoral")
-        ]
+        print("🔄 Inicializando datos desde MongoDB...")
+        
+        # Inicializar datos básicos en MongoDB
+        self.medios_comunicacion = DatosBasicosService.inicializar_medios_comunicacion()
+        self.tipos_modulos = DatosBasicosService.inicializar_tipos_modulos()
+        self.frecuencias_publicacion = DatosBasicosService.inicializar_frecuencias_publicacion()
+        
+        # Inicializar anuncios de prueba si no existen
+        AnuncioService.inicializar_anuncios_prueba(
+            self.medios_comunicacion, 
+            self.tipos_modulos, 
+            self.frecuencias_publicacion
+        )
+        
+        # Cargar anuncios activos
+        self.cargar_anuncios_desde_db()
+        
+        print(f"✅ Datos inicializados: {len(self.medios_comunicacion)} medios, "
+              f"{len(self.tipos_modulos)} módulos, {len(self.frecuencias_publicacion)} frecuencias, "
+              f"{len(self.anuncios)} anuncios")
 
-        # Inicializar tipos de módulos
-        self.tipos_modulos = [
-            TipoModulo("M1"),
-            TipoModulo("M2"),
-            TipoModulo("M3"),
-            TipoModulo("M4"),
-            TipoModulo("M6"),
-            TipoModulo("M8"),
-            TipoModulo("M12"),
-            TipoModulo("M16")
-        ]
-
-        # Inicializar frecuencias de publicación
-        self.frecuencias_publicacion = [
-            FrecuenciaPublicacion("D"),
-            FrecuenciaPublicacion("LAV"),
-            FrecuenciaPublicacion("SD"),
-            FrecuenciaPublicacion("1S"),
-            FrecuenciaPublicacion("2S"),
-            FrecuenciaPublicacion("3S"),
-            FrecuenciaPublicacion("1.15"),
-            FrecuenciaPublicacion("1.30")
-        ]
-
-        # Cargar anuncios de prueba
-        self.anuncios = [
-            Anuncio(self.medios_comunicacion[0], self.tipos_modulos[3], self.frecuencias_publicacion[1], 2500.0, "Tech Solutions Inc."),
-            Anuncio(self.medios_comunicacion[1], self.tipos_modulos[1], self.frecuencias_publicacion[0], 1800.0, "Innovate Corp."),
-            Anuncio(self.medios_comunicacion[2], self.tipos_modulos[5], self.frecuencias_publicacion[6], 4300.0, "Global Industries Ltd."),
-            Anuncio(self.medios_comunicacion[3], self.tipos_modulos[0], self.frecuencias_publicacion[2], 500.0, "Creative Designs Studio"),
-            Anuncio(self.medios_comunicacion[4], self.tipos_modulos[2], self.frecuencias_publicacion[4], 1300.0, "Marketing Masters"),
-            Anuncio(self.medios_comunicacion[5], self.tipos_modulos[7], self.frecuencias_publicacion[7], 1000.0, "Digital Dynamics"),
-            Anuncio(self.medios_comunicacion[0], self.tipos_modulos[4], self.frecuencias_publicacion[3], 200.0, "Code Wizards"),
-            Anuncio(self.medios_comunicacion[1], self.tipos_modulos[6], self.frecuencias_publicacion[5], 900.0, "Future Vision"),
-            Anuncio(self.medios_comunicacion[2], self.tipos_modulos[0], self.frecuencias_publicacion[0], 2100.0, "Open Source Solutions"),
-            Anuncio(self.medios_comunicacion[3], self.tipos_modulos[2], self.frecuencias_publicacion[1], 2100.0, "Web Dev Experts"),
-            Anuncio(self.medios_comunicacion[4], self.tipos_modulos[1], self.frecuencias_publicacion[4], 2100.0, "Marketing Masters")
-        ]
+    def cargar_anuncios_desde_db(self):
+        """
+        Carga todos los anuncios activos desde la base de datos
+        """
+        self.anuncios = AnuncioService.obtener_todos_los_anuncios()
 
     def mostrar_menu(self):
         """
         Muestra el menú principal del programa.
         """
-        print("****************************************")
-        print("********** Menú Principal **********")
-        print("****************************************")
-        print("1. Mostrar precios")
-        print("2. Agregar anuncio")
-        print("3. Eliminar anuncio")
-        print("4. Mostrar anuncios")
-        print("5. Buscar anuncio por empresa")
-        print("6. Modificar anuncio")
-        print("7. Calcular ingresos totales de los anuncios cargados")
-        print("0. Salir")
-        print("****************************************")
+        print("\n" + "="*50)
+        print("🏢 SISTEMA DE GESTIÓN DE ANUNCIOS PUBLICITARIOS")
+        print("="*50)
+        print("1. 📊 Mostrar precios")
+        print("2. ➕ Agregar anuncio")
+        print("3. ❌ Eliminar anuncio")
+        print("4. 📋 Mostrar anuncios")
+        print("5. 🔍 Buscar anuncio por empresa")
+        print("6. ✏️  Modificar anuncio")
+        print("7. 💰 Calcular ingresos totales")
+        print("8. 🔄 Recargar datos desde BD")
+        print("0. 🚪 Salir")
+        print("="*50)
 
     def obtener_opcion(self):
         """
@@ -111,7 +91,7 @@ class ProyectoIntegrador:
                 opcion = int(input("Ingrese su opción: "))
                 return opcion
             except ValueError:
-                print("Entrada inválida. Ingrese un número.")
+                print("❌ Entrada inválida. Ingrese un número.")
 
     def get_precio(self, modulo, frecuencia):
         """
@@ -130,17 +110,20 @@ class ProyectoIntegrador:
         """
         Muestra los precios de los espacios publicitarios.
         """
-        print("Precios de los espacios publicitarios:")
+        print("\n📊 PRECIOS DE ESPACIOS PUBLICITARIOS")
+        print("-" * 50)
         for i in range(len(self.tipos_modulos)):
             for j in range(len(self.frecuencias_publicacion)):
                 precio = self.get_precio(i, j)
-                print(f"{self.tipos_modulos[i].get_nombre()} - {self.frecuencias_publicacion[j].get_nombre()}: ${precio}")
+                print(f"{self.tipos_modulos[i].get_nombre()} - {self.frecuencias_publicacion[j].get_nombre()}: ${precio:,.2f}")
 
     def agregar_anuncio(self):
         """
-        Agrega un nuevo anuncio al sistema.
-        Solicita al usuario los datos del anuncio (medio, módulo, frecuencia, empresa).
+        Agrega un nuevo anuncio al sistema y lo guarda en MongoDB.
         """
+        print("\n➕ AGREGAR NUEVO ANUNCIO")
+        print("-" * 30)
+        
         print("Seleccione el medio de comunicación:")
         for i, medio in enumerate(self.medios_comunicacion):
             print(f"{i + 1}. {medio.get_nombre()}")
@@ -152,11 +135,11 @@ class ProyectoIntegrador:
                     medio_seleccionado = self.medios_comunicacion[medio_index]
                     break
                 else:
-                    print("Selección inválida. Intente nuevamente.")
+                    print("❌ Selección inválida. Intente nuevamente.")
             except ValueError:
-                print("Entrada inválida. Ingrese un número.")
+                print("❌ Entrada inválida. Ingrese un número.")
 
-        print("Seleccione el tipo de módulo:")
+        print("\nSeleccione el tipo de módulo:")
         for i, modulo in enumerate(self.tipos_modulos):
             print(f"{i + 1}. {modulo.get_nombre()}")
         
@@ -167,11 +150,11 @@ class ProyectoIntegrador:
                     tipo_modulo_seleccionado = self.tipos_modulos[tipo_modulo_index]
                     break
                 else:
-                    print("Selección inválida. Intente nuevamente.")
+                    print("❌ Selección inválida. Intente nuevamente.")
             except ValueError:
-                print("Entrada inválida. Ingrese un número.")
+                print("❌ Entrada inválida. Ingrese un número.")
 
-        print("Seleccione la frecuencia de publicación:")
+        print("\nSeleccione la frecuencia de publicación:")
         for i, frecuencia in enumerate(self.frecuencias_publicacion):
             print(f"{i + 1}. {frecuencia.get_nombre()}")
         
@@ -182,119 +165,155 @@ class ProyectoIntegrador:
                     frecuencia_seleccionada = self.frecuencias_publicacion[frecuencia_index]
                     break
                 else:
-                    print("Selección inválida. Intente nuevamente.")
+                    print("❌ Selección inválida. Intente nuevamente.")
             except ValueError:
-                print("Entrada inválida. Ingrese un número.")
+                print("❌ Entrada inválida. Ingrese un número.")
 
-        nombre_empresa = input("Ingresar nombre empresa: ")
+        nombre_empresa = input("\nIngresar nombre empresa: ").strip()
+        if not nombre_empresa:
+            print("❌ El nombre de la empresa no puede estar vacío.")
+            return
         
         # Calcular precio total
         precio = self.get_precio(tipo_modulo_index, frecuencia_index)
         
-        # Agregar el anuncio
-        nuevo_anuncio = Anuncio(medio_seleccionado, tipo_modulo_seleccionado, frecuencia_seleccionada, precio, nombre_empresa)
-        self.anuncios.append(nuevo_anuncio)
-        
-        print("Anuncio agregado exitosamente.")
+        try:
+            # Crear el anuncio en MongoDB
+            nuevo_anuncio = AnuncioService.crear_anuncio(
+                medio_seleccionado, 
+                tipo_modulo_seleccionado, 
+                frecuencia_seleccionada, 
+                precio, 
+                nombre_empresa
+            )
+            
+            # Recargar anuncios desde la BD
+            self.cargar_anuncios_desde_db()
+            
+            print(f"✅ Anuncio agregado exitosamente: {nombre_empresa} - ${precio:,.2f}")
+            
+        except Exception as e:
+            print(f"❌ Error al crear el anuncio: {e}")
 
     def eliminar_anuncio(self):
         """
         Elimina un anuncio del sistema.
-        Solicita al usuario el ID del anuncio a eliminar.
         """
         if not self.anuncios:
-            print("No hay anuncios para eliminar.")
+            print("❌ No hay anuncios para eliminar.")
             return
             
+        print("\n❌ ELIMINAR ANUNCIO")
+        print("-" * 20)
         self.mostrar_anuncios()
         
         while True:
             try:
-                anuncio_id = int(input("Ingrese el ID del anuncio a eliminar: "))
-                if 0 <= anuncio_id < len(self.anuncios):
-                    self.anuncios.pop(anuncio_id)
-                    print("Anuncio eliminado exitosamente.")
+                anuncio_index = int(input("\nIngrese el número del anuncio a eliminar: ")) - 1
+                if 0 <= anuncio_index < len(self.anuncios):
+                    anuncio_seleccionado = self.anuncios[anuncio_index]
+                    
+                    # Confirmar eliminación
+                    confirmacion = input(f"¿Está seguro de eliminar el anuncio de '{anuncio_seleccionado.get_empresa()}'? (s/n): ")
+                    if confirmacion.lower() == 's':
+                        # Eliminar de MongoDB
+                        if AnuncioService.eliminar_anuncio(str(anuncio_seleccionado.id)):
+                            # Recargar anuncios desde la BD
+                            self.cargar_anuncios_desde_db()
+                            print("✅ Anuncio eliminado exitosamente.")
+                        else:
+                            print("❌ Error al eliminar el anuncio.")
+                    else:
+                        print("🚫 Eliminación cancelada.")
                     break
                 else:
-                    print("ID de anuncio inválido.")
+                    print("❌ Número de anuncio inválido.")
             except ValueError:
-                print("Entrada inválida. Ingrese un número.")
+                print("❌ Entrada inválida. Ingrese un número.")
 
     def mostrar_anuncios(self):
         """
         Muestra la lista de anuncios creados.
         """
         if not self.anuncios:
-            print("No hay anuncios registrados.")
+            print("📋 No hay anuncios registrados.")
             return
             
-        print("Lista de anuncios:")
+        print("\n📋 LISTA DE ANUNCIOS")
+        print("-" * 80)
         for i, anuncio in enumerate(self.anuncios):
-            print(f"ID: {i}, Medio: {anuncio.get_medio().get_nombre()}, "
-                  f"Módulo: {anuncio.get_modulo().get_nombre()}, "
-                  f"Frecuencia: {anuncio.get_frecuencia().get_nombre()}, "
-                  f"Precio: ${anuncio.get_precio():.2f}, "
-                  f"Nombre de la empresa: {anuncio.get_empresa()}")
+            print(f"{i + 1:2}. {anuncio.get_empresa():<25} | "
+                  f"{anuncio.get_medio().get_nombre():<15} | "
+                  f"{anuncio.get_modulo().get_nombre():<4} | "
+                  f"{anuncio.get_frecuencia().get_nombre():<4} | "
+                  f"${anuncio.get_precio():>8,.2f}")
 
     def calcular_ingresos_totales(self):
         """
-        Calcula los ingresos totales de los anuncios cargados.
+        Calcula los ingresos totales directamente desde MongoDB.
         
         Returns:
             float: El total de ingresos de todos los anuncios.
         """
-        total_ingresos = sum(anuncio.get_precio() for anuncio in self.anuncios)
-        return total_ingresos
+        return AnuncioService.calcular_ingresos_totales()
 
     def buscar_anuncio_por_empresa(self):
         """
-        Busca anuncios por el nombre de la empresa.
+        Busca anuncios por el nombre de la empresa usando MongoDB.
         """
-        nombre_empresa = input("Ingrese el nombre de la empresa a buscar: ")
-        encontrado = False
+        nombre_empresa = input("\n🔍 Ingrese el nombre de la empresa a buscar: ").strip()
+        if not nombre_empresa:
+            print("❌ El nombre de la empresa no puede estar vacío.")
+            return
         
-        for i, anuncio in enumerate(self.anuncios):
-            if anuncio.get_empresa().lower() == nombre_empresa.lower():
-                print(f"ID: {i}, Medio: {anuncio.get_medio().get_nombre()}, "
-                      f"Módulo: {anuncio.get_modulo().get_nombre()}, "
-                      f"Frecuencia: {anuncio.get_frecuencia().get_nombre()}, "
-                      f"Precio: ${anuncio.get_precio():.2f}, "
-                      f"Empresa: {anuncio.get_empresa()}")
-                encontrado = True
+        # Buscar en MongoDB
+        anuncios_encontrados = AnuncioService.buscar_anuncios_por_empresa(nombre_empresa)
         
-        if not encontrado:
-            print(f"No se encontraron anuncios para la empresa: {nombre_empresa}")
+        if anuncios_encontrados:
+            print(f"\n✅ Se encontraron {len(anuncios_encontrados)} anuncio(s) para '{nombre_empresa}':")
+            print("-" * 80)
+            for i, anuncio in enumerate(anuncios_encontrados):
+                print(f"{i + 1}. {anuncio.get_empresa():<25} | "
+                      f"{anuncio.get_medio().get_nombre():<15} | "
+                      f"{anuncio.get_modulo().get_nombre():<4} | "
+                      f"{anuncio.get_frecuencia().get_nombre():<4} | "
+                      f"${anuncio.get_precio():>8,.2f}")
+        else:
+            print(f"❌ No se encontraron anuncios para la empresa: {nombre_empresa}")
 
     def modificar_anuncio(self):
         """
         Modifica un anuncio existente.
-        Solicita al usuario el ID del anuncio a modificar y los nuevos datos.
         """
         if not self.anuncios:
-            print("No hay anuncios para modificar.")
+            print("❌ No hay anuncios para modificar.")
             return
             
+        print("\n✏️  MODIFICAR ANUNCIO")
+        print("-" * 20)
         self.mostrar_anuncios()
         
         while True:
             try:
-                anuncio_id = int(input("Ingrese el ID del anuncio a modificar: "))
-                if 0 <= anuncio_id < len(self.anuncios):
+                anuncio_index = int(input("\nIngrese el número del anuncio a modificar: ")) - 1
+                if 0 <= anuncio_index < len(self.anuncios):
                     break
                 else:
-                    print("ID inválido o anuncio no encontrado.")
+                    print("❌ Número inválido o anuncio no encontrado.")
             except ValueError:
-                print("Entrada inválida. Ingrese un número.")
+                print("❌ Entrada inválida. Ingrese un número.")
         
-        anuncio = self.anuncios[anuncio_id]
+        anuncio = self.anuncios[anuncio_index]
         
         # Modificar nombre de empresa
-        nuevo_nombre_empresa = input("Ingrese el nuevo nombre de la empresa (o presione Enter para dejar igual): ")
-        if nuevo_nombre_empresa.strip():
+        print(f"\nEmpresa actual: {anuncio.get_empresa()}")
+        nuevo_nombre_empresa = input("Nuevo nombre de empresa (Enter para mantener): ").strip()
+        if nuevo_nombre_empresa:
             anuncio.set_empresa(nuevo_nombre_empresa)
         
         # Modificar medio de comunicación
-        print("Seleccione el nuevo medio de comunicación (o 0 para dejar igual):")
+        print(f"\nMedio actual: {anuncio.get_medio().get_nombre()}")
+        print("Seleccione el nuevo medio de comunicación (0 para mantener):")
         for i, medio in enumerate(self.medios_comunicacion):
             print(f"{i + 1}. {medio.get_nombre()}")
         
@@ -306,7 +325,8 @@ class ProyectoIntegrador:
             pass
         
         # Modificar tipo de módulo
-        print("Seleccione el nuevo tipo de módulo (o 0 para dejar igual):")
+        print(f"\nMódulo actual: {anuncio.get_modulo().get_nombre()}")
+        print("Seleccione el nuevo tipo de módulo (0 para mantener):")
         for i, modulo in enumerate(self.tipos_modulos):
             print(f"{i + 1}. {modulo.get_nombre()}")
         
@@ -319,7 +339,8 @@ class ProyectoIntegrador:
             pass
         
         # Modificar frecuencia de publicación
-        print("Seleccione la nueva frecuencia de publicación (o 0 para dejar igual):")
+        print(f"\nFrecuencia actual: {anuncio.get_frecuencia().get_nombre()}")
+        print("Seleccione la nueva frecuencia de publicación (0 para mantener):")
         for i, frecuencia in enumerate(self.frecuencias_publicacion):
             print(f"{i + 1}. {frecuencia.get_nombre()}")
         
@@ -337,52 +358,93 @@ class ProyectoIntegrador:
         nuevo_precio = self.get_precio(modulo_index, frecuencia_index)
         anuncio.set_precio(nuevo_precio)
         
-        print("Anuncio modificado exitosamente.")
+        try:
+            # Actualizar en MongoDB
+            AnuncioService.actualizar_anuncio(anuncio)
+            
+            # Recargar anuncios desde la BD
+            self.cargar_anuncios_desde_db()
+            
+            print("✅ Anuncio modificado exitosamente.")
+            
+        except Exception as e:
+            print(f"❌ Error al actualizar el anuncio: {e}")
 
     def mostrar_ingresos_totales(self):
         """
         Muestra el total de ingresos de los anuncios cargados.
         """
         total = self.calcular_ingresos_totales()
-        print(f"El ingreso total de todos los anuncios cargados en el sistema es: ${total:.2f}")
+        print(f"\n💰 INGRESOS TOTALES")
+        print("-" * 30)
+        print(f"Total de ingresos: ${total:,.2f}")
+        print(f"Número de anuncios activos: {len(self.anuncios)}")
+
+    def recargar_datos(self):
+        """
+        Recarga todos los datos desde MongoDB
+        """
+        print("\n🔄 Recargando datos desde MongoDB...")
+        self.medios_comunicacion = DatosBasicosService.obtener_todos_los_medios()
+        self.tipos_modulos = DatosBasicosService.obtener_todos_los_modulos()
+        self.frecuencias_publicacion = DatosBasicosService.obtener_todas_las_frecuencias()
+        self.cargar_anuncios_desde_db()
+        print("✅ Datos recargados exitosamente.")
 
     def ejecutar(self):
         """
         Método principal del programa.
         Ejecuta el bucle principal del menú.
         """
-        self.inicializar_datos()
+        # Conectar a MongoDB
+        if not conectar():
+            print("❌ No se pudo conectar a MongoDB. Saliendo...")
+            return
         
-        while True:
-            self.mostrar_menu()
-            opcion = self.obtener_opcion()
+        try:
+            self.inicializar_datos()
             
-            if opcion == 1:
-                self.mostrar_precios()
-            elif opcion == 2:
-                self.agregar_anuncio()
-            elif opcion == 3:
-                self.eliminar_anuncio()
-            elif opcion == 4:
-                self.mostrar_anuncios()
-            elif opcion == 5:
-                self.buscar_anuncio_por_empresa()
-            elif opcion == 6:
-                self.modificar_anuncio()
-            elif opcion == 7:
-                self.mostrar_ingresos_totales()
-            elif opcion == 0:
-                print("Saliendo...")
-                break
-            else:
-                print("Opción incorrecta")
+            while True:
+                self.mostrar_menu()
+                opcion = self.obtener_opcion()
+                
+                if opcion == 1:
+                    self.mostrar_precios()
+                elif opcion == 2:
+                    self.agregar_anuncio()
+                elif opcion == 3:
+                    self.eliminar_anuncio()
+                elif opcion == 4:
+                    self.mostrar_anuncios()
+                elif opcion == 5:
+                    self.buscar_anuncio_por_empresa()
+                elif opcion == 6:
+                    self.modificar_anuncio()
+                elif opcion == 7:
+                    self.mostrar_ingresos_totales()
+                elif opcion == 8:
+                    self.recargar_datos()
+                elif opcion == 0:
+                    print("🚪 Saliendo...")
+                    break
+                else:
+                    print("❌ Opción incorrecta")
+                
+                input("\n⏸️  Presione Enter para continuar...")
             
-            print()  # Línea en blanco para separar las operaciones
+        except KeyboardInterrupt:
+            print("\n\n🛑 Programa interrumpido por el usuario")
+        except Exception as e:
+            print(f"\n❌ Error inesperado: {e}")
+        finally:
+            # Desconectar de MongoDB
+            desconectar()
 
 def main():
     """
     Función principal que inicia el programa.
     """
+    print("🚀 Iniciando Sistema de Gestión de Anuncios Publicitarios...")
     programa = ProyectoIntegrador()
     programa.ejecutar()
 

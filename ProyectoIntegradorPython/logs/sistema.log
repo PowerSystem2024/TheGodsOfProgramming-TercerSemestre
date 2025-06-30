@@ -1,0 +1,10 @@
+2025-06-30 06:42:07,574 [INFO] utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 06:42:07,575 [INFO] utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 06:42:07,575 [INFO] utils.logging_config:26: Iniciando inicialización del proyecto
+2025-06-30 06:42:07,578 [INFO] db.conexion:20: Conexión a MongoDB establecida exitosamente
+2025-06-30 06:42:07,621 [INFO] utils.logging_config:68: Proyecto inicializado exitosamente
+2025-06-30 06:42:07,622 [INFO] db.conexion:36: Desconectado de MongoDB
+2025-06-30 06:42:19,420 [INFO] utils.logging_config:27: Sistema de logging configurado - Nivel: INFO
+2025-06-30 06:42:19,420 [INFO] utils.logging_config:28: Archivo de log: logs/sistema.log
+2025-06-30 06:42:19,421 [INFO] utils.logging_config:30: Iniciando Sistema de Gestión de Anuncios Publicitarios v2.0.0
+2025-06-30 06:42:19,422 [INFO] db.conexion:20: Conexión a MongoDB establecida exitosamente

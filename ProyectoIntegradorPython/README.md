@@ -2,6 +2,13 @@
 
 Este proyecto es una adaptación a Python del sistema de gestión de anuncios publicitarios originalmente desarrollado en Java. El sistema permite gestionar anuncios publicitarios para diferentes medios de comunicación, con distintos tipos de módulos y frecuencias de publicación.
 
+**🎯 Características principales:**
+- **Persistencia en MongoDB**: Todos los datos se almacenan en una base de datos MongoDB
+- **Interfaz de consola interactiva**: Menú fácil de usar
+- **CRUD completo**: Crear, leer, actualizar y eliminar anuncios
+- **Búsquedas avanzadas**: Buscar por empresa, calcular ingresos totales
+- **Datos de prueba preconfigurados**: Sistema listo para usar
+
 ## Funcionalidades
 
 El sistema ofrece las siguientes funcionalidades a través de un menú interactivo:
@@ -21,15 +28,22 @@ ProyectoIntegradorPython/
 │
 ├── src/
 │   ├── main.py                     # Archivo principal con la lógica del programa
-│   └── models/                     # Modelos de datos
-│       ├── anuncio.py             # Clase Anuncio
-│       ├── frecuencia_publicacion.py  # Clase FrecuenciaPublicacion
-│       ├── medio_comunicacion.py   # Clase MedioComunicacion
-│       └── tipo_modulo.py         # Clase TipoModulo
-├── tests/                          # Pruebas del sistema (opcional)
+│   ├── db/                         # Configuración de base de datos
+│   │   └── conexion.py            # Conexión a MongoDB
+│   ├── models/                     # Modelos de datos (MongoDB)
+│   │   ├── anuncio.py             # Modelo Anuncio
+│   │   ├── frecuencia_publicacion.py  # Modelo FrecuenciaPublicacion
+│   │   ├── medio_comunicacion.py   # Modelo MedioComunicacion
+│   │   └── tipo_modulo.py         # Modelo TipoModulo
+│   └── services/                   # Servicios de negocio
+│       ├── __init__.py
+│       ├── anuncio_service.py     # Servicio para gestión de anuncios
+│       └── datos_basicos_service.py # Servicio para datos básicos
+├── tests/                          # Pruebas del sistema
 │   ├── __init__.py
 │   ├── conftest.py
 │   └── test_integracion.py
+├── test_conexion.py                # Script de prueba de conexión MongoDB
 ├── test_sistema.py                 # Script de pruebas completas
 ├── GUIA_USO.md                     # Guía detallada de uso
 ├── README.md
@@ -37,27 +51,29 @@ ProyectoIntegradorPython/
 └── setup.py
 ```
 
-## Modelos de Datos
+## Modelos de Datos (MongoDB)
+
+El sistema utiliza **MongoDB** como base de datos NoSQL para almacenar todos los datos de forma persistente. Los modelos están implementados usando **MongoEngine** como ODM (Object Document Mapper).
 
 ### MedioComunicacion
-Representa los diferentes medios de comunicación donde se pueden publicar anuncios:
+Colección que almacena los diferentes medios de comunicación:
 - El Norteño, Del Sur, Patagónico, Del Centro, El Cuyano, Del Litoral
+- **Campos**: `nombre`, `fecha_creacion`, `activo`
 
 ### TipoModulo
-Define los diferentes tamaños de módulos publicitarios:
+Colección que define los diferentes tamaños de módulos publicitarios:
 - M1, M2, M3, M4, M6, M8, M12, M16
+- **Campos**: `nombre`, `fecha_creacion`, `activo`
 
 ### FrecuenciaPublicacion
-Especifica las frecuencias de publicación disponibles:
+Colección que especifica las frecuencias de publicación:
 - D (Diario), LAV (Lunes a Viernes), SD (Sábado y Domingo), 1S, 2S, 3S, 1.15, 1.30
+- **Campos**: `nombre`, `descripcion`, `fecha_creacion`, `activo`
 
 ### Anuncio
-Clase principal que representa un anuncio publicitario con:
-- Medio de comunicación
-- Tipo de módulo
-- Frecuencia de publicación
-- Precio (calculado automáticamente)
-- Nombre de la empresa
+Colección principal que representa un anuncio publicitario:
+- **Campos**: `medio` (referencia), `modulo` (referencia), `frecuencia` (referencia), `precio`, `empresa`, `fecha_creacion`, `activo`
+- **Índices**: Por empresa, fecha_creacion, activo, y compuesto por medio-modulo-frecuencia
 
 ## Matriz de Precios
 
@@ -65,16 +81,41 @@ El sistema utiliza una matriz de precios predefinida que determina el costo de c
 
 ## Instalación y Ejecución
 
-### Requisitos
-- Python 3.6 o superior
+### Requisitos Previos
+- **Python 3.6 o superior**
+- **MongoDB 4.0 o superior** (debe estar ejecutándose)
+- **Conexión a Internet** (para instalar dependencias)
 
 ### Instalación
-1. Clona el repositorio
-2. Navega al directorio del proyecto
-3. Instala las dependencias (actualmente no hay dependencias externas):
+1. **Clonar el repositorio**
+   ```bash
+   git clone <url-del-repositorio>
+   cd ProyectoIntegradorPython
+   ```
+
+2. **Instalar MongoDB**
+   - Descarga e instala MongoDB desde [mongodb.com](https://www.mongodb.com/try/download/community)
+   - Asegúrate de que el servicio MongoDB esté ejecutándose
+
+3. **Configurar entorno virtual de Python**
+   ```bash
+   python -m venv .venv
+   # En Windows
+   .venv\Scripts\activate
+   # En Linux/Mac
+   source .venv/bin/activate
+   ```
+
+4. **Instalar dependencias**
    ```bash
    pip install -r requirements.txt
    ```
+
+### Verificar Instalación
+Ejecuta el script de prueba para verificar que todo está configurado correctamente:
+```bash
+python test_conexion.py
+```
 
 ### Ejecución
 Para ejecutar el programa:
@@ -88,9 +129,24 @@ pip install -e .
 anuncios
 ```
 
+### Configuración de MongoDB
+Por defecto, el sistema se conecta a:
+- **Host**: localhost:27017
+- **Base de datos**: proyecto_anuncios_publicitarios
+
+Para cambiar la configuración, edita el archivo `src/db/conexion.py`.
+
 ## Datos de Prueba
 
-El sistema viene precargado con 11 anuncios de prueba de diferentes empresas para facilitar las pruebas y demostración de funcionalidades:
+El sistema viene con **datos de prueba automáticos** que se crean en MongoDB la primera vez que ejecutas la aplicación:
+
+### Datos Básicos Precargados:
+- **6 medios de comunicación**
+- **8 tipos de módulos** (M1 a M16)
+- **8 frecuencias de publicación**
+
+### Anuncios de Prueba:
+El sistema crea automáticamente 11 anuncios de prueba:
 
 - Tech Solutions Inc. ($2,500.00)
 - Innovate Corp. ($1,800.00)
@@ -106,7 +162,17 @@ El sistema viene precargado con 11 anuncios de prueba de diferentes empresas par
 
 **Total de ingresos precargados: $18,800.00**
 
+### Persistencia de Datos
+- Los datos se almacenan permanentemente en MongoDB
+- Los datos de prueba solo se crean una vez
+- Puedes limpiar la base de datos eliminando la BD `proyecto_anuncios_publicitarios`
+
 ## Pruebas del Sistema
+
+### Verificar conexión a MongoDB:
+```bash
+python test_conexion.py
+```
 
 ### Ejecutar todas las funcionalidades de prueba:
 ```bash
@@ -120,21 +186,41 @@ Este script ejecuta automáticamente todas las funcionalidades del sistema y mue
 python -m pytest tests/
 ```
 
+### Solución de Problemas
+Si obtienes errores de conexión:
+1. Verifica que MongoDB esté ejecutándose
+2. Verifica la configuración en `src/db/conexion.py`
+3. Verifica que las dependencias estén instaladas: `pip install -r requirements.txt`
+
 ## Características del Código
 
-- **Orientado a Objetos**: Utiliza clases para modelar los diferentes componentes del sistema
-- **Validación de Entrada**: Incluye validación para entradas del usuario
+- **Arquitectura MongoDB**: Utiliza MongoDB como base de datos NoSQL
+- **MongoEngine ODM**: Object Document Mapper para Python
+- **Orientado a Objetos**: Utiliza clases para modelar los diferentes componentes
+- **Patrón de Servicios**: Separación de lógica de negocio en servicios
+- **Validación de Entrada**: Incluye validación para entradas del usuario y datos
 - **Interfaz Interactiva**: Menú de consola fácil de usar
-- **Gestión de Errores**: Manejo básico de errores para entradas inválidas
+- **Gestión de Errores**: Manejo robusto de errores para base de datos y entrada de usuario
+- **Índices de Base de Datos**: Optimización de consultas con índices MongoDB
 - **Documentación**: Código documentado con docstrings en español
+- **Logging**: Sistema de mensajes informativos para el usuario
 
 ## Diferencias con la Versión Java
 
-Esta versión en Python mantiene toda la funcionalidad del original en Java, con las siguientes adaptaciones:
-- Uso de listas de Python en lugar de ArrayList de Java
-- Manejo de excepciones específico de Python
+Esta versión en Python con MongoDB ofrece ventajas significativas sobre el original en Java:
+
+### Funcionalidades Nuevas:
+- **Persistencia permanente**: Los datos se mantienen entre ejecuciones
+- **Base de datos NoSQL**: Flexibilidad de MongoDB para futuras extensiones
+- **Servicios especializados**: Separación clara de responsabilidades
+- **Inicialización automática**: Creación automática de datos de prueba
+- **Validación de datos**: Validación a nivel de base de datos y aplicación
+
+### Adaptaciones de Java a Python:
+- Uso de MongoEngine en lugar de JPA/Hibernate
+- Manejo de excepciones específico de Python y MongoDB
 - Sintaxis y convenciones de Python
-- Uso de métodos getter/setter para mantener compatibilidad conceptual
+- Uso de decoradores y métodos mágicos de Python
 
 ## Medios de Comunicación Disponibles
 1. El Norteño
