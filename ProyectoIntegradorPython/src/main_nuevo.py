@@ -7,9 +7,9 @@ import os
 # Agregar el directorio actual al path para las importaciones
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from utils.logging_config import configurar_logging
+from src.utils.logging_config import configurar_logging
 from controllers.controlador_principal import ControladorPrincipal
-from config.configuracion import Config
+from src.config.configuracion import Config
 
 
 def main():

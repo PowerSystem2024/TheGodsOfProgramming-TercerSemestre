@@ -3,9 +3,9 @@ Proyecto Integrador - Sistema de Gestión de Anuncios Publicitarios
 Adaptación a Python del proyecto original en Java con persistencia en MongoDB
 """
 
-from db.conexion import conectar, desconectar
-from services.datos_basicos_service import DatosBasicosService
-from services.anuncio_service import AnuncioService
+from src.db.conexion import conectar, desconectar
+from src.services.datos_basicos_service import DatosBasicosService
+from src.services.anuncio_service import AnuncioService
 from models.anuncio import Anuncio
 
 class ProyectoIntegrador:

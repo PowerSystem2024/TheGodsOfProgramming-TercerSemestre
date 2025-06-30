@@ -2,10 +2,10 @@
 Interfaz de usuario para el sistema de gestión de anuncios publicitarios
 """
 from typing import List, Optional
-from models.anuncio import Anuncio
-from models.medio_comunicacion import MedioComunicacion
-from models.tipo_modulo import TipoModulo
-from models.frecuencia_publicacion import FrecuenciaPublicacion
+from src.models.anuncio import Anuncio
+from src.models.medio_comunicacion import MedioComunicacion
+from src.models.tipo_modulo import TipoModulo
+from src.models.frecuencia_publicacion import FrecuenciaPublicacion
 
 
 class InterfazUsuario:

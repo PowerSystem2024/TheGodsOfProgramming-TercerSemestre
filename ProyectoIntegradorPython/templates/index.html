@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron bg-primary text-white p-5 rounded mb-4">
+            <h1 class="display-4">
+                <i class="bi bi-megaphone"></i>
+                Sistema de Gestión de Anuncios Publicitarios
+            </h1>
+            <p class="lead">
+                Gestiona de manera eficiente todos tus anuncios publicitarios, 
+                medios de comunicación y estrategias de marketing.
+            </p>
+            <hr class="my-4">
+            <p>
+                Un sistema completo para el control y administración de campañas publicitarias
+                con análisis de precios y reportes detallados.
+            </p>
+            <a class="btn btn-light btn-lg" href="{{ url_for('crear_anuncio') }}" role="button">
+                <i class="bi bi-plus-circle"></i> Crear Nuevo Anuncio
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Estadísticas -->
+    <div class="col-md-3 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="bi bi-megaphone text-primary" style="font-size: 2rem;"></i>
+                <h5 class="card-title mt-2">Total Anuncios</h5>
+                <h2 class="text-primary">{{ stats.total_anuncios }}</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="bi bi-list text-success" style="font-size: 2rem;"></i>
+                <h5 class="card-title mt-2">Ver Todos</h5>
+                <a href="{{ url_for('listar_anuncios') }}" class="btn btn-success">
+                    <i class="bi bi-eye"></i> Ver Lista
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="bi bi-table text-info" style="font-size: 2rem;"></i>
+                <h5 class="card-title mt-2">Matriz Precios</h5>
+                <a href="{{ url_for('matriz_precios') }}" class="btn btn-info">
+                    <i class="bi bi-table"></i> Ver Matriz
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="bi bi-gear text-warning" style="font-size: 2rem;"></i>
+                <h5 class="card-title mt-2">Configuración</h5>
+                <a href="{{ url_for('configuracion') }}" class="btn btn-warning">
+                    <i class="bi bi-gear"></i> Configurar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if stats.anuncios_recientes %}
+<div class="row mt-4">
+    <div class="col-12">
+        <h3><i class="bi bi-clock-history"></i> Anuncios Recientes</h3>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Medio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for anuncio in stats.anuncios_recientes %}
+                    <tr>
+                        <td><strong>{{ anuncio.codigo }}</strong></td>
+                        <td>{{ anuncio.nombre_producto }}</td>
+                        <td>${{ "%.2f"|format(anuncio.precio) }}</td>
+                        <td>{{ anuncio.medio_comunicacion.nombre if anuncio.medio_comunicacion else 'N/A' }}</td>
+                        <td>
+                            <a href="{{ url_for('ver_anuncio', anuncio_id=anuncio.id) }}" 
+                               class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-eye"></i> Ver
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center">
+            <a href="{{ url_for('listar_anuncios') }}" class="btn btn-primary">
+                <i class="bi bi-list"></i> Ver Todos los Anuncios
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5><i class="bi bi-info-circle"></i> Acerca del Sistema</h5>
+            </div>
+            <div class="card-body">
+                <p>
+                    Sistema desarrollado por <strong>The Gods of Programming</strong> 
+                    para la gestión integral de anuncios publicitarios.
+                </p>
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-check-circle text-success"></i> Gestión de anuncios</li>
+                    <li><i class="bi bi-check-circle text-success"></i> Control de medios</li>
+                    <li><i class="bi bi-check-circle text-success"></i> Análisis de precios</li>
+                    <li><i class="bi bi-check-circle text-success"></i> Reportes detallados</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5><i class="bi bi-rocket"></i> Funcionalidades</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-plus-circle"></i> Crear y editar anuncios</li>
+                    <li><i class="bi bi-search"></i> Búsqueda avanzada</li>
+                    <li><i class="bi bi-table"></i> Matriz de precios</li>
+                    <li><i class="bi bi-graph-up"></i> Análisis de costos</li>
+                    <li><i class="bi bi-gear"></i> Configuración flexible</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5><i class="bi bi-lightbulb"></i> Tecnología</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-code-slash"></i> Python + Flask</li>
+                    <li><i class="bi bi-database"></i> MongoDB</li>
+                    <li><i class="bi bi-bootstrap"></i> Bootstrap 5</li>
+                    <li><i class="bi bi-palette"></i> UI Moderna</li>
+                    <li><i class="bi bi-shield-check"></i> Validación de datos</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
