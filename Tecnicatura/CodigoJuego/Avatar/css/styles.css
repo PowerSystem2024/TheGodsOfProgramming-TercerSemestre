@@ -1,0 +1,189 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f0f8ff;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #3498db;
+}
+
+.game-section {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.personajes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.personaje-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.personaje-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.personaje-label:hover {
+    transform: scale(1.05);
+}
+
+.personaje-label img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    margin-bottom: 5px;
+}
+
+input[type="radio"]:checked+.personaje-label img {
+    border-color: #3498db;
+}
+
+.btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+}
+
+.vidas-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.nombre-personaje {
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.ataques {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-ataque {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.btn-ataque:hover {
+    background-color: #c0392b;
+    transform: translateY(-3px);
+}
+
+#resultado {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.ataque {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .personajes {
+        flex-direction: column;
+    }
+
+    .vidas-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .ataques {
+        flex-direction: column;
+    }
+}
+
+.personajes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin: 30px 0;
+}
+
+/* Cada opción de personaje */
+.personaje-option {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo para el nombre del personaje */
+.personaje-label span {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 5px;
+    font-size: 1.1rem;
+}
+
+/* Efecto hover */
+.personaje-label:hover img {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(52, 152, 219, 0.3);
+}
