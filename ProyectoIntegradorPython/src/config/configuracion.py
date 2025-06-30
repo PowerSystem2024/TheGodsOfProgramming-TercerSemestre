@@ -11,11 +11,8 @@ class Config:
     """
     
     def __init__(self):
-        # Configuración de MongoDB
-        self.MONGODB_HOST = os.getenv('MONGODB_HOST', 'localhost')
-        self.MONGODB_PORT = int(os.getenv('MONGODB_PORT', 27017))
-        self.MONGODB_DB_NAME = os.getenv('MONGODB_DB_NAME', 'proyecto_anuncios_publicitarios')
-        self.MONGODB_URL = os.getenv('MONGODB_URL')
+        # Configuración de MongoDB (URL unificada)
+        self.MONGODB_URL = os.getenv('MONGODB_URL', 'mongodb://localhost:27017/proyecto_anuncios_publicitarios')
         
         # Configuración de logging
         self.LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
@@ -37,14 +34,13 @@ class Config:
         
     def get_mongodb_config(self) -> Dict[str, Any]:
         """
-        Retorna la configuración de MongoDB
+        Retorna la configuración de MongoDB usando URL unificada
         
         Returns:
             Dict con configuración de MongoDB
         """
         return {
             'host': self.MONGODB_URL,
-            'db': self.MONGODB_DB_NAME,
             'connect': False,  # Para evitar problemas con threading
             'serverSelectionTimeoutMS': 3000,  # Timeout de conexión
             'connectTimeoutMS': 3000,

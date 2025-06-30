@@ -56,9 +56,7 @@ class ControladorPrincipal:
             self._cargar_datos_basicos()
             
             # Inicializar datos de prueba si es necesario
-            self.datos_basicos_service.inicializar_medios_comunicacion()
-            self.datos_basicos_service.inicializar_tipos_modulos()
-            self.datos_basicos_service.inicializar_frecuencias_publicacion()
+            self.datos_basicos_service.inicializar_datos_basicos()
             
             self.logger.info(
                 f"Sistema inicializado: {len(self.medios_comunicacion)} medios, "
@@ -74,9 +72,9 @@ class ControladorPrincipal:
     def _cargar_datos_basicos(self) -> None:
         """Carga los datos básicos desde la base de datos"""
         try:
-            self.medios_comunicacion = self.datos_basicos_service.obtener_todos_los_medios()
-            self.tipos_modulos = self.datos_basicos_service.obtener_todos_los_modulos()
-            self.frecuencias_publicacion = self.datos_basicos_service.obtener_todas_las_frecuencias()
+            self.medios_comunicacion = self.datos_basicos_service.obtener_medios()
+            self.tipos_modulos = self.datos_basicos_service.obtener_tipos()
+            self.frecuencias_publicacion = self.datos_basicos_service.obtener_frecuencias()
         except Exception as e:
             self.logger.error(f"Error al cargar datos básicos: {e}")
     
