@@ -8,8 +8,9 @@ Repositorio perteneciente al grupo "The Gods of Programming"
   Contiene los proyectos y ejercicios prácticos de la materia Javascript del tercer semestre.  
   👉 [Ir al índice de proyectos de Javascript](https://powersystem2024.github.io/TheGodsOfProgramming-TercerSemestre/Tecnicatura/Javascript/index.html)
 
-- **Otros directorios**  
-  Aquí se agregarán futuras materias, trabajos prácticos o recursos relacionados con la Tecnicatura.
+- **Codigo Juego** 
+  Contiene los proyectos de los días miércoles de Programacion 3
+👉 [Ir al índice de proyectos] (https://powersystem2024.github.io/TheGodsOfProgramming-TercerSemestre/Tecnicatura/CodigoJuego/index.html)
 
 Cada carpeta incluye los archivos fuente, documentación y recursos necesarios para cada trabajo o clase.
 
