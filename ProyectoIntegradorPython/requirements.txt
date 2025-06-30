@@ -1,7 +1,8 @@
 # Dependencias para el proyecto de gestión de anuncios publicitarios
-# Este proyecto no requiere dependencias externas, solo usa la biblioteca estándar de Python
+mongoengine>=0.27.0
+pymongo>=4.0.0
 
-# Si necesitas agregar dependencias en el futuro, añádelas aquí:
+# Si necesitas agregar más dependencias en el futuro, añádelas aquí:
 # Por ejemplo:
 # requests==2.31.0
 # beautifulsoup4==4.12.2

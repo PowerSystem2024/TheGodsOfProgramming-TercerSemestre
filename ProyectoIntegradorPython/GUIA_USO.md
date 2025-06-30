@@ -1,6 +1,53 @@
 # Guía de Uso - Sistema de Gestión de Anuncios Publicitarios
 
-## Cómo ejecutar el programa
+## 🚀 Requisitos Previos
+
+### Instalación de MongoDB
+1. **Descargar MongoDB**
+   - Ve a [mongodb.com/try/download/community](https://www.mongodb.com/try/download/community)
+   - Descarga la versión para tu sistema operativo
+   - Instala siguiendo las instrucciones oficiales
+
+2. **Iniciar MongoDB**
+   - **Windows**: El servicio se inicia automáticamente o usa `net start MongoDB`
+   - **Linux/Mac**: `sudo systemctl start mongod` o `brew services start mongodb-community`
+
+3. **Verificar que MongoDB está ejecutándose**
+   - Abre una terminal y ejecuta: `mongo` o `mongosh`
+   - Deberías ver la conexión exitosa
+
+### Instalación del Proyecto
+```bash
+# Clonar el repositorio
+git clone <url-del-repositorio>
+cd ProyectoIntegradorPython
+
+# Crear entorno virtual
+python -m venv .venv
+
+# Activar entorno virtual
+# Windows:
+.venv\Scripts\activate
+# Linux/Mac:
+source .venv/bin/activate
+
+# Instalar dependencias
+pip install -r requirements.txt
+```
+
+## 🧪 Verificación de la Instalación
+
+Antes de usar el programa, ejecuta:
+```bash
+python test_conexion.py
+```
+
+Si todo está correcto, verás:
+```
+✅ Todas las pruebas pasaron. El sistema está listo para usar con MongoDB.
+```
+
+## 🎯 Cómo ejecutar el programa
 
 ### Opción 1: Ejecutar directamente
 ```bash
@@ -13,41 +60,68 @@ pip install -e .
 anuncios
 ```
 
+### Opción 3: Demostración automática
+```bash
+python demo_mongodb.py
+```
+Esta opción ejecuta una demostración completa de todas las funcionalidades.
+
 ## Menú Principal
 
 Al ejecutar el programa, verás el siguiente menú:
 
 ```
-****************************************
-********** Menú Principal **********
-****************************************
-1. Mostrar precios
-2. Agregar anuncio
-3. Eliminar anuncio
-4. Mostrar anuncios
-5. Buscar anuncio por empresa
-6. Modificar anuncio
-7. Calcular ingresos totales de los anuncios cargados
-0. Salir
-****************************************
+==================================================
+🏢 SISTEMA DE GESTIÓN DE ANUNCIOS PUBLICITARIOS
+==================================================
+1. 📊 Mostrar precios
+2. ➕ Agregar anuncio
+3. ❌ Eliminar anuncio
+4. 📋 Mostrar anuncios
+5. 🔍 Buscar anuncio por empresa
+6. ✏️  Modificar anuncio
+7. 💰 Calcular ingresos totales
+8. 🔄 Recargar datos desde BD
+0. 🚪 Salir
+==================================================
 ```
+
+## 🗃️ Persistencia de Datos
+
+**Importante**: Este sistema utiliza MongoDB para almacenar todos los datos de forma permanente:
+
+- **Primera ejecución**: Se crean automáticamente los datos básicos y 11 anuncios de prueba
+- **Ejecuciones posteriores**: Los datos se cargan desde la base de datos
+- **Todos los cambios** (crear, modificar, eliminar) se guardan automáticamente en MongoDB
+- **Base de datos**: `proyecto_anuncios_publicitarios`
+- **Colecciones**: `medios_comunicacion`, `tipos_modulos`, `frecuencias_publicacion`, `anuncios`
 
 ## Funcionalidades Detalladas
 
-### 1. Mostrar precios
+### 1. 📊 Mostrar precios
 - Muestra la matriz completa de precios
 - Combina todos los tipos de módulos con todas las frecuencias
 - Útil para consultar tarifas antes de crear anuncios
+- **Datos cargados desde MongoDB**
 
-### 2. Agregar anuncio
-- Selecciona el medio de comunicación (1-6)
-- Selecciona el tipo de módulo (1-8)
-- Selecciona la frecuencia de publicación (1-8)
+### 2. ➕ Agregar anuncio
+- Selecciona el medio de comunicación (cargado desde BD)
+- Selecciona el tipo de módulo (cargado desde BD)
+- Selecciona la frecuencia de publicación (cargado desde BD)
 - Ingresa el nombre de la empresa
 - El precio se calcula automáticamente
+- **Se guarda permanentemente en MongoDB**
 
-### 3. Eliminar anuncio
-- Primero muestra la lista de anuncios
+### 3. ❌ Eliminar anuncio
+- Muestra todos los anuncios activos desde la BD
+- Selecciona el anuncio por ID
+- **Eliminación lógica**: Se marca como inactivo en MongoDB
+- Los datos se conservan para auditoría
+
+### 8. 🔄 Recargar datos desde BD
+- **Nueva funcionalidad**: Recarga todos los datos desde MongoDB
+- Útil si otros usuarios han hecho cambios
+- Actualiza medios, módulos, frecuencias y anuncios
 - Solicita el ID del anuncio a eliminar
 - Confirma la eliminación
 
