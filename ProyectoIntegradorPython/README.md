@@ -1,6 +1,106 @@
-# Proyecto Integrador - Python
+# Proyecto Integrador - Sistema de Gestión de Anuncios Publicitarios
 
-Este repositorio corresponde a la migración del Proyecto Integrador de Java a Python, usando MongoDB como base de datos y mongoengine como ODM.
+Este proyecto es una adaptación a Python del sistema de gestión de anuncios publicitarios originalmente desarrollado en Java. El sistema permite gestionar anuncios publicitarios para diferentes medios de comunicación, con distintos tipos de módulos y frecuencias de publicación.
+
+## Funcionalidades
+
+El sistema ofrece las siguientes funcionalidades a través de un menú interactivo:
+
+1. **Mostrar precios**: Visualiza la matriz de precios según el tipo de módulo y frecuencia de publicación
+2. **Agregar anuncio**: Permite crear un nuevo anuncio seleccionando medio, módulo, frecuencia y empresa
+3. **Eliminar anuncio**: Elimina un anuncio existente por su ID
+4. **Mostrar anuncios**: Lista todos los anuncios registrados en el sistema
+5. **Buscar anuncio por empresa**: Busca y muestra anuncios de una empresa específica
+6. **Modificar anuncio**: Permite editar los datos de un anuncio existente
+7. **Calcular ingresos totales**: Muestra el total de ingresos de todos los anuncios
+
+## Estructura del Proyecto
+
+```
+ProyectoIntegradorPython/
+│
+├── src/
+│   ├── main.py                     # Archivo principal con la lógica del programa
+│   └── models/                     # Modelos de datos
+│       ├── anuncio.py             # Clase Anuncio
+│       ├── frecuencia_publicacion.py  # Clase FrecuenciaPublicacion
+│       ├── medio_comunicacion.py   # Clase MedioComunicacion
+│       └── tipo_modulo.py         # Clase TipoModulo
+├── README.md
+├── requirements.txt
+└── setup.py
+```
+
+## Modelos de Datos
+
+### MedioComunicacion
+Representa los diferentes medios de comunicación donde se pueden publicar anuncios:
+- El Norteño, Del Sur, Patagónico, Del Centro, El Cuyano, Del Litoral
+
+### TipoModulo
+Define los diferentes tamaños de módulos publicitarios:
+- M1, M2, M3, M4, M6, M8, M12, M16
+
+### FrecuenciaPublicacion
+Especifica las frecuencias de publicación disponibles:
+- D (Diario), LAV (Lunes a Viernes), SD (Sábado y Domingo), 1S, 2S, 3S, 1.15, 1.30
+
+### Anuncio
+Clase principal que representa un anuncio publicitario con:
+- Medio de comunicación
+- Tipo de módulo
+- Frecuencia de publicación
+- Precio (calculado automáticamente)
+- Nombre de la empresa
+
+## Matriz de Precios
+
+El sistema utiliza una matriz de precios predefinida que determina el costo de cada anuncio según la combinación de módulo y frecuencia de publicación. Los precios van desde $100 hasta $11,000.
+
+## Instalación y Ejecución
+
+### Requisitos
+- Python 3.6 o superior
+
+### Instalación
+1. Clona el repositorio
+2. Navega al directorio del proyecto
+3. Instala las dependencias (actualmente no hay dependencias externas):
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### Ejecución
+Para ejecutar el programa:
+```bash
+python src/main.py
+```
+
+O usando el comando de consola definido en setup.py:
+```bash
+pip install -e .
+anuncios
+```
+
+## Datos de Prueba
+
+El sistema viene precargado con 11 anuncios de prueba de diferentes empresas para facilitar las pruebas y demostración de funcionalidades.
+
+## Características del Código
+
+- **Orientado a Objetos**: Utiliza clases para modelar los diferentes componentes del sistema
+- **Validación de Entrada**: Incluye validación para entradas del usuario
+- **Interfaz Interactiva**: Menú de consola fácil de usar
+- **Gestión de Errores**: Manejo básico de errores para entradas inválidas
+- **Documentación**: Código documentado con docstrings en español
+
+## Diferencias con la Versión Java
+
+Esta versión en Python mantiene toda la funcionalidad del original en Java, con las siguientes adaptaciones:
+- Uso de listas de Python en lugar de ArrayList de Java
+- Manejo de excepciones específico de Python
+- Sintaxis y convenciones de Python
+- Uso de métodos getter/setter para mantener compatibilidad conceptual
 
 ---
 
