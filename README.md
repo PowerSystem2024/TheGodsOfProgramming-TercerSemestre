@@ -10,7 +10,7 @@ Repositorio perteneciente al grupo "The Gods of Programming"
 
 - **Codigo Juego** 
   Contiene los proyectos de los días miércoles de Programacion 3
-👉 [Ir al índice de proyectos] (https://powersystem2024.github.io/TheGodsOfProgramming-TercerSemestre/Tecnicatura/CodigoJuego/index.html)
+👉 [Ir al índice de proyectos](https://powersystem2024.github.io/TheGodsOfProgramming-TercerSemestre/Tecnicatura/CodigoJuego/index.html)
 
 Cada carpeta incluye los archivos fuente, documentación y recursos necesarios para cada trabajo o clase.
 
