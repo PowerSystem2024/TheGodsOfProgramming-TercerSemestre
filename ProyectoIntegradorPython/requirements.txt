@@ -1,2 +1,7 @@
 # Dependencias para el proyecto de gestión de anuncios publicitarios
 # Este proyecto no requiere dependencias externas, solo usa la biblioteca estándar de Python
+
+# Si necesitas agregar dependencias en el futuro, añádelas aquí:
+# Por ejemplo:
+# requests==2.31.0
+# beautifulsoup4==4.12.2
