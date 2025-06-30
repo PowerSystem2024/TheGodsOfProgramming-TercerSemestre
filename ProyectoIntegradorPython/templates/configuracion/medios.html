@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Medios de Comunicación{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2><i class="bi bi-broadcast"></i> Medios de Comunicación</h2>
+                <p class="text-muted">Gestiona los medios de comunicación disponibles</p>
+            </div>
+            <a href="{{ url_for('configuracion') }}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a Configuración
+            </a>
+        </div>
+
+        {% if medios %}
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for medio in medios %}
+                            <tr>
+                                <td>
+                                    <strong>{{ medio.nombre }}</strong>
+                                </td>
+                                <td>{{ medio.descripcion or 'Sin descripción' }}</td>
+                                <td>
+                                    <span class="badge bg-success">Activo</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            <h6><i class="bi bi-info-circle"></i> No hay medios de comunicación registrados</h6>
+            <p class="mb-0">Los medios de comunicación se inicializan automáticamente con el sistema.</p>
+        </div>
+        {% endif %}
+
+        <div class="mt-4">
+            <div class="alert alert-warning">
+                <h6><i class="bi bi-exclamation-triangle"></i> Información importante:</h6>
+                <ul class="mb-0">
+                    <li>Los medios de comunicación son gestionados automáticamente por el sistema</li>
+                    <li>Incluyen: Radio, Televisión, Prensa, Internet, Vallas</li>
+                    <li>Cada anuncio debe estar asociado a un medio de comunicación</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

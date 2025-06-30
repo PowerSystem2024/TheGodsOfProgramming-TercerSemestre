@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Frecuencias de Publicación{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2><i class="bi bi-clock"></i> Frecuencias de Publicación</h2>
+                <p class="text-muted">Gestiona las frecuencias de publicación disponibles</p>
+            </div>
+            <a href="{{ url_for('configuracion') }}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a Configuración
+            </a>
+        </div>
+
+        {% if frecuencias %}
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for frecuencia in frecuencias %}
+                            <tr>
+                                <td>
+                                    <strong>{{ frecuencia.nombre }}</strong>
+                                </td>
+                                <td>{{ frecuencia.descripcion or 'Sin descripción' }}</td>
+                                <td>
+                                    <span class="badge bg-success">Activo</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            <h6><i class="bi bi-info-circle"></i> No hay frecuencias de publicación registradas</h6>
+            <p class="mb-0">Las frecuencias se inicializan automáticamente con el sistema.</p>
+        </div>
+        {% endif %}
+
+        <div class="mt-4">
+            <div class="alert alert-warning">
+                <h6><i class="bi bi-exclamation-triangle"></i> Información importante:</h6>
+                <ul class="mb-0">
+                    <li>Las frecuencias determinan cada cuánto se publica el anuncio</li>
+                    <li>Incluyen: F1, F2, F3, F4, F5, F6</li>
+                    <li>Afectan directamente el costo total de la campaña publicitaria</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

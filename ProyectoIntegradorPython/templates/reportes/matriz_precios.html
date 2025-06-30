@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}Matriz de Precios - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-table"></i> Matriz de Precios</h2>
+    <a href="{{ url_for('listar_anuncios') }}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Volver a Anuncios
+    </a>
+</div>
+
+{% if matriz %}
+<div class="card">
+    <div class="card-header">
+        <h5>Análisis de Precios por Medio y Tipo de Módulo</h5>
+        <p class="mb-0 text-muted">Muestra los precios promedio, mínimo y máximo agrupados por combinaciones de medio de comunicación y tipo de módulo.</p>
+    </div>
+    <div class="card-body">
+        {% for medio, tipos in matriz.items() %}
+        <div class="mb-4">
+            <h6 class="text-primary border-bottom pb-2">
+                <i class="bi bi-broadcast"></i> {{ medio }}
+            </h6>
+            
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Tipo de Módulo</th>
+                            <th>Cantidad</th>
+                            <th>Precio Promedio</th>
+                            <th>Precio Mínimo</th>
+                            <th>Precio Máximo</th>
+                            <th>Rango</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tipo, datos in tipos.items() %}
+                        <tr>
+                            <td><strong>{{ tipo }}</strong></td>
+                            <td>
+                                <span class="badge bg-info">{{ datos.cantidad }}</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-success">${{ "%.2f"|format(datos.promedio) }}</span>
+                            </td>
+                            <td>
+                                <span class="text-success">${{ "%.2f"|format(datos.minimo) }}</span>
+                            </td>
+                            <td>
+                                <span class="text-danger">${{ "%.2f"|format(datos.maximo) }}</span>
+                            </td>
+                            <td>
+                                {% set rango = datos.maximo - datos.minimo %}
+                                <span class="badge bg-secondary">${{ "%.2f"|format(rango) }}</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Resumen estadístico -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h6><i class="bi bi-graph-up"></i> Estadísticas Generales</h6>
+            </div>
+            <div class="card-body">
+                {% set total_anuncios = 0 %}
+                {% set precios = [] %}
+                {% for medio, tipos in matriz.items() %}
+                    {% for tipo, datos in tipos.items() %}
+                        {% set total_anuncios = total_anuncios + datos.cantidad %}
+                        {% set _ = precios.append(datos.promedio) %}
+                    {% endfor %}
+                {% endfor %}
+                
+                <div class="row text-center">
+                    <div class="col-6">
+                        <h4 class="text-primary">{{ total_anuncios }}</h4>
+                        <small class="text-muted">Total Anuncios</small>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="text-success">{{ matriz.keys()|length }}</h4>
+                        <small class="text-muted">Medios Activos</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h6><i class="bi bi-info-circle"></i> Información</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    <li><i class="bi bi-check-circle text-success"></i> Los precios se muestran en la moneda configurada</li>
+                    <li><i class="bi bi-check-circle text-success"></i> El promedio se calcula por tipo de módulo</li>
+                    <li><i class="bi bi-check-circle text-success"></i> Solo se incluyen anuncios activos</li>
+                    <li><i class="bi bi-check-circle text-success"></i> Los datos se actualizan en tiempo real</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="text-center py-5">
+    <i class="bi bi-table text-muted" style="font-size: 4rem;"></i>
+    <h4 class="text-muted mt-3">No hay datos para mostrar</h4>
+    <p class="text-muted">
+        Para generar la matriz de precios necesitas tener anuncios creados con medios de comunicación y tipos de módulo asignados.
+    </p>
+    <a href="{{ url_for('crear_anuncio') }}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Crear Primer Anuncio
+    </a>
+</div>
+{% endif %}
+
+<div class="mt-4">
+    <div class="alert alert-info">
+        <h6><i class="bi bi-lightbulb"></i> Consejos para interpretar la matriz:</h6>
+        <ul class="mb-0">
+            <li><strong>Precio Promedio:</strong> Útil para establecer precios competitivos</li>
+            <li><strong>Rango de Precios:</strong> Indica la variabilidad en cada categoría</li>
+            <li><strong>Cantidad:</strong> Muestra qué combinaciones son más populares</li>
+            <li><strong>Comparación:</strong> Permite identificar oportunidades de pricing</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
