@@ -15,7 +15,7 @@ class Config:
         self.MONGODB_HOST = os.getenv('MONGODB_HOST', 'localhost')
         self.MONGODB_PORT = int(os.getenv('MONGODB_PORT', 27017))
         self.MONGODB_DB_NAME = os.getenv('MONGODB_DB_NAME', 'proyecto_anuncios_publicitarios')
-        self.MONGODB_URL = f"mongodb://{self.MONGODB_HOST}:{self.MONGODB_PORT}/{self.MONGODB_DB_NAME}"
+        self.MONGODB_URL = os.getenv('MONGODB_URL')
         
         # Configuración de logging
         self.LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
