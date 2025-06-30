@@ -43,6 +43,22 @@ class AnuncioService:
             list: Lista de anuncios activos
         """
         return AnuncioService.obtener_todos_los_anuncios()
+
+    @staticmethod
+    def obtener_anuncio_por_id(anuncio_id):
+        """
+        Obtiene un anuncio específico por su ID
+        
+        Args:
+            anuncio_id (str): ID del anuncio
+            
+        Returns:
+            Anuncio: El anuncio encontrado o None si no existe
+        """
+        try:
+            return Anuncio.objects(id=anuncio_id, activo=True).first()
+        except:
+            return None
     
     @staticmethod
     def obtener_todos_los_anuncios():
