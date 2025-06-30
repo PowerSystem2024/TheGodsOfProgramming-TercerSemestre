@@ -1,6 +1,15 @@
 # Dependencias para el proyecto de gestión de anuncios publicitarios
+
+# Base de datos MongoDB
 mongoengine>=0.27.0
 pymongo>=4.0.0
+
+# Testing (opcional para desarrollo)
+pytest>=7.0.0
+pytest-mock>=3.10.0
+
+# Utilities
+python-dotenv>=1.0.0
 
 # Si necesitas agregar más dependencias en el futuro, añádelas aquí:
 # Por ejemplo:
