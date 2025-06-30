@@ -1,2 +1,20 @@
 /Tecnicatura/JAVA/Clase11-ProyectoEstudiantes/.idea
 /Tecnicatura/JAVA/Clase11-ProyectoEstudiantes/SistemaEstudiantes/.idea
+
+# Byte-compiled / optimized / DLL files
+ProyectoIntegradorPython/__pycache__/
+ProyectoIntegradorPython/*.py[cod]
+ProyectoIntegradorPython/*$py.class
+
+# Virtual environment
+ProyectoIntegradorPython/venv/
+ProyectoIntegradorPython/env/
+
+# Distribution / packaging
+ProyectoIntegradorPython/build/
+ProyectoIntegradorPython/dist/
+ProyectoIntegradorPython/*.egg-info/
+
+# IDEs and editors
+ProyectoIntegradorPython/.idea/
+ProyectoIntegradorPython/.vscode/
