@@ -8,6 +8,11 @@ from src.web.api import api_bp
 from src.web.config import FlaskConfig
 from src.utils.logging_config import configurar_logging
 import logging
+import os
+from dotenv import load_dotenv
+
+# Cargar variables de entorno desde .env
+load_dotenv()
 
 def create_app():
     """Crea y configura la aplicación Flask"""
