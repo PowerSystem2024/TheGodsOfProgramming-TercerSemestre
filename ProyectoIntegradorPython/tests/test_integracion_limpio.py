@@ -1,5 +1,5 @@
 """
-Tests de integración básicos que funcionan correctamente
+Tests de integración básicos
 """
 import unittest
 from unittest.mock import patch, MagicMock

@@ -52,7 +52,6 @@ anuncio_model = api.model('Anuncio', {
 
 anuncio_input = api.model('AnuncioInput', {
     'empresa': fields.String(required=True, description='Nombre de la empresa'),
-    'precio': fields.Float(required=True, description='Precio del anuncio'),
     'medio_comunicacion_id': fields.String(required=True, description='ID del medio de comunicación'),
     'tipo_modulo_id': fields.String(required=True, description='ID del tipo de módulo'),
     'frecuencia_publicacion_id': fields.String(required=True, description='ID de la frecuencia de publicación')
@@ -130,7 +129,7 @@ class AnunciosList(Resource):
     @anuncios_ns.expect(anuncio_input)
     @anuncios_ns.marshal_with(response_model)
     def post(self):
-        """Crea un nuevo anuncio"""
+        """Crea un nuevo anuncio con precio calculado automáticamente"""
         disponible, error = verificar_controlador()
         if not disponible:
             return error, 503
@@ -141,18 +140,32 @@ class AnunciosList(Resource):
                 return {"exitoso": False, "mensaje": "Datos JSON requeridos"}, 400
             
             # Validar campos requeridos
-            campos_requeridos = ['empresa', 'precio', 'medio_comunicacion_id', 'tipo_modulo_id', 'frecuencia_publicacion_id']
+            campos_requeridos = ['empresa', 'medio_comunicacion_id', 'tipo_modulo_id', 'frecuencia_publicacion_id']
             for campo in campos_requeridos:
                 if campo not in datos:
                     return {"exitoso": False, "mensaje": f"Campo requerido: {campo}"}, 400
             
-            # Crear anuncio usando el método básico del servicio
-            resultado = controlador.anuncio_service.crear_anuncio_web(datos)
+            # Obtener objetos de la base de datos
+            medio = controlador.datos_basicos_service.obtener_medio_comunicacion_por_id(datos['medio_comunicacion_id'])
+            tipo = controlador.datos_basicos_service.obtener_tipo_modulo_por_id(datos['tipo_modulo_id'])
+            frecuencia = controlador.datos_basicos_service.obtener_frecuencia_publicacion_por_id(datos['frecuencia_publicacion_id'])
             
-            if resultado['exitoso']:
-                return {"exitoso": True, "mensaje": "Anuncio creado exitosamente", "datos": {"id": str(resultado.get('anuncio', {}).get('id', ''))}}, 201
-            else:
-                return {"exitoso": False, "mensaje": resultado['mensaje']}, 400
+            if not all([medio, tipo, frecuencia]):
+                return {"exitoso": False, "mensaje": "Datos de referencia no válidos"}, 400
+            
+            # Crear anuncio con precio automático
+            anuncio = controlador.anuncio_service.crear_anuncio_simple(
+                medio=medio,
+                modulo=tipo,
+                frecuencia=frecuencia,
+                empresa=datos['empresa']
+            )
+            
+            return {
+                "exitoso": True, 
+                "mensaje": f"Anuncio creado exitosamente con precio automático: ${anuncio.precio:.2f}", 
+                "datos": {"id": str(anuncio.id), "precio": anuncio.precio}
+            }, 201
                 
         except Exception as e:
             logger.error(f"Error al crear anuncio: {e}")

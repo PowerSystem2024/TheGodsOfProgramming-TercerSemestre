@@ -83,20 +83,20 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Código</th>
-                        <th>Producto</th>
+                        <th>Empresa</th>
                         <th>Precio</th>
                         <th>Medio</th>
+                        <th>Tipo Módulo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for anuncio in stats.anuncios_recientes %}
                     <tr>
-                        <td><strong>{{ anuncio.codigo }}</strong></td>
-                        <td>{{ anuncio.nombre_producto }}</td>
+                        <td><strong>{{ anuncio.empresa }}</strong></td>
                         <td>${{ "%.2f"|format(anuncio.precio) }}</td>
-                        <td>{{ anuncio.medio_comunicacion.nombre if anuncio.medio_comunicacion else 'N/A' }}</td>
+                        <td>{{ anuncio.medio.nombre if anuncio.medio else 'N/A' }}</td>
+                        <td>{{ anuncio.modulo.nombre if anuncio.modulo else 'N/A' }}</td>
                         <td>
                             <a href="{{ url_for('ver_anuncio', anuncio_id=anuncio.id) }}" 
                                class="btn btn-sm btn-outline-primary">

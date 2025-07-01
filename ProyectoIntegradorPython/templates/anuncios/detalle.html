@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 
-{% block title %}{{ anuncio.codigo }} - {{ super() }}{% endblock %}
+{% block title %}{{ anuncio.empresa }} - {{ super() }}{% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-md-8">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4><i class="bi bi-megaphone"></i> {{ anuncio.codigo }}</h4>
+                <h4><i class="bi bi-megaphone"></i> {{ anuncio.empresa }}</h4>
                 <div class="btn-group">
                     <a href="{{ url_for('editar_anuncio', anuncio_id=anuncio.id) }}" 
                        class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil"></i> Editar
                     </a>
                     <button type="button" class="btn btn-danger btn-sm" 
-                            onclick="confirmarEliminacion('{{ anuncio.id }}', '{{ anuncio.codigo }}')">
+                            onclick="confirmarEliminacion('{{ anuncio.id }}', '{{ anuncio.empresa }}')">
                         <i class="bi bi-trash"></i> Eliminar
                     </button>
                 </div>
@@ -22,17 +22,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <h2 class="text-primary">{{ anuncio.nombre_producto }}</h2>
-                        {% if anuncio.slogan %}
-                        <p class="lead text-muted fst-italic">"{{ anuncio.slogan }}"</p>
-                        {% endif %}
-                        
-                        {% if anuncio.descripcion %}
-                        <div class="mt-3">
-                            <h6>Descripción:</h6>
-                            <p>{{ anuncio.descripcion }}</p>
-                        </div>
-                        {% endif %}
+                        <h2 class="text-primary">{{ anuncio.empresa }}</h2>
+                        <p class="lead text-muted">Anuncio publicitario con precio calculado automáticamente</p>
                     </div>
                 </div>
                 
@@ -41,8 +32,8 @@
                         <h6>Información del Anuncio</h6>
                         <table class="table table-sm">
                             <tr>
-                                <td><strong>Código:</strong></td>
-                                <td>{{ anuncio.codigo }}</td>
+                                <td><strong>Empresa:</strong></td>
+                                <td>{{ anuncio.empresa }}</td>
                             </tr>
                             <tr>
                                 <td><strong>Precio:</strong></td>
@@ -65,8 +56,8 @@
                             <tr>
                                 <td><strong>Medio de Comunicación:</strong></td>
                                 <td>
-                                    {% if anuncio.medio_comunicacion %}
-                                        <span class="badge bg-info">{{ anuncio.medio_comunicacion.nombre }}</span>
+                                    {% if anuncio.medio %}
+                                        <span class="badge bg-info">{{ anuncio.medio.nombre }}</span>
                                     {% else %}
                                         <span class="text-muted">No asignado</span>
                                     {% endif %}
@@ -75,8 +66,8 @@
                             <tr>
                                 <td><strong>Tipo de Módulo:</strong></td>
                                 <td>
-                                    {% if anuncio.tipo_modulo %}
-                                        <span class="badge bg-secondary">{{ anuncio.tipo_modulo.nombre }}</span>
+                                    {% if anuncio.modulo %}
+                                        <span class="badge bg-secondary">{{ anuncio.modulo.nombre }}</span>
                                     {% else %}
                                         <span class="text-muted">No asignado</span>
                                     {% endif %}
@@ -85,10 +76,20 @@
                             <tr>
                                 <td><strong>Frecuencia de Publicación:</strong></td>
                                 <td>
-                                    {% if anuncio.frecuencia_publicacion %}
-                                        <span class="badge bg-warning text-dark">{{ anuncio.frecuencia_publicacion.nombre }}</span>
+                                    {% if anuncio.frecuencia %}
+                                        <span class="badge bg-warning text-dark">{{ anuncio.frecuencia.nombre }}</span>
                                     {% else %}
                                         <span class="text-muted">No asignado</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fecha de Creación:</strong></td>
+                                <td>
+                                    {% if anuncio.fecha_creacion %}
+                                        <small class="text-muted">{{ anuncio.fecha_creacion.strftime('%d/%m/%Y %H:%M') }}</small>
+                                    {% else %}
+                                        <span class="text-muted">No disponible</span>
                                     {% endif %}
                                 </td>
                             </tr>

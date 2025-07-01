@@ -133,24 +133,30 @@ def register_routes(app):
             form.frecuencia_publicacion.choices = [(f.id, f.nombre) for f in frecuencias]
             
             if form.validate_on_submit():
-                datos_anuncio = {
-                    'codigo': form.codigo.data,
-                    'nombre_producto': form.nombre_producto.data,
-                    'slogan': form.slogan.data,
-                    'descripcion': form.descripcion.data,
-                    'precio': form.precio.data,
-                    'medio_comunicacion_id': form.medio_comunicacion.data,
-                    'tipo_modulo_id': form.tipo_modulo.data,
-                    'frecuencia_publicacion_id': form.frecuencia_publicacion.data
-                }
-                
-                resultado = controlador.anuncio_service.crear_anuncio_web(datos_anuncio)
-                
-                if resultado['exitoso']:
-                    flash('Anuncio creado exitosamente', 'success')
+                try:
+                    # Obtener objetos de la base de datos
+                    medio = controlador.datos_basicos_service.obtener_medio_comunicacion_por_id(form.medio_comunicacion.data)
+                    tipo = controlador.datos_basicos_service.obtener_tipo_modulo_por_id(form.tipo_modulo.data)
+                    frecuencia = controlador.datos_basicos_service.obtener_frecuencia_publicacion_por_id(form.frecuencia_publicacion.data)
+                    
+                    if not all([medio, tipo, frecuencia]):
+                        flash('Error: Datos de referencia no válidos', 'error')
+                        return render_template('anuncios/crear.html', form=form)
+                    
+                    # Crear anuncio con precio automático
+                    anuncio = controlador.anuncio_service.crear_anuncio_simple(
+                        medio=medio,
+                        modulo=tipo,
+                        frecuencia=frecuencia,
+                        empresa=form.empresa.data
+                    )
+                    
+                    flash(f'Anuncio creado exitosamente con precio automático: ${anuncio.precio:,.2f}', 'success')
                     return redirect(url_for('listar_anuncios'))
-                else:
-                    flash(f"Error al crear anuncio: {resultado['mensaje']}", 'error')
+                    
+                except Exception as e:
+                    logger.error(f"Error al crear anuncio: {e}")
+                    flash(f"Error al crear anuncio: {str(e)}", 'error')
             
             return render_template('anuncios/crear.html', form=form)
             
@@ -187,7 +193,7 @@ def register_routes(app):
                 flash('Anuncio no encontrado', 'error')
                 return redirect(url_for('listar_anuncios'))
             
-            form = AnuncioForm(obj=anuncio)
+            form = AnuncioForm()
             
             # Llenar opciones del formulario
             medios = controlador.datos_basicos_service.listar_medios_comunicacion()
@@ -198,25 +204,38 @@ def register_routes(app):
             form.tipo_modulo.choices = [(t.id, t.nombre) for t in tipos]
             form.frecuencia_publicacion.choices = [(f.id, f.nombre) for f in frecuencias]
             
+            # Pre-llenar el formulario con datos actuales
+            if request.method == 'GET':
+                form.empresa.data = anuncio.empresa
+                form.medio_comunicacion.data = str(anuncio.medio.id)
+                form.tipo_modulo.data = str(anuncio.modulo.id)
+                form.frecuencia_publicacion.data = str(anuncio.frecuencia.id)
+            
             if form.validate_on_submit():
-                datos_actualizados = {
-                    'codigo': form.codigo.data,
-                    'nombre_producto': form.nombre_producto.data,
-                    'slogan': form.slogan.data,
-                    'descripcion': form.descripcion.data,
-                    'precio': form.precio.data,
-                    'medio_comunicacion_id': form.medio_comunicacion.data,
-                    'tipo_modulo_id': form.tipo_modulo.data,
-                    'frecuencia_publicacion_id': form.frecuencia_publicacion.data
-                }
-                
-                resultado = controlador.anuncio_service.actualizar_anuncio_web(anuncio_id, datos_actualizados)
-                
-                if resultado['exitoso']:
-                    flash('Anuncio actualizado exitosamente', 'success')
+                try:
+                    # Obtener objetos de la base de datos
+                    medio = controlador.datos_basicos_service.obtener_medio_comunicacion_por_id(form.medio_comunicacion.data)
+                    tipo = controlador.datos_basicos_service.obtener_tipo_modulo_por_id(form.tipo_modulo.data)
+                    frecuencia = controlador.datos_basicos_service.obtener_frecuencia_publicacion_por_id(form.frecuencia_publicacion.data)
+                    
+                    if not all([medio, tipo, frecuencia]):
+                        flash('Error: Datos de referencia no válidos', 'error')
+                        return render_template('anuncios/editar.html', form=form, anuncio=anuncio)
+                    
+                    # Actualizar anuncio con recálculo de precio
+                    anuncio.empresa = form.empresa.data
+                    anuncio.medio = medio
+                    anuncio.modulo = tipo
+                    anuncio.frecuencia = frecuencia
+                    anuncio.precio = anuncio.calcular_precio()  # Recalcular precio
+                    anuncio.save()
+                    
+                    flash(f'Anuncio actualizado exitosamente. Nuevo precio: ${anuncio.precio:,.2f}', 'success')
                     return redirect(url_for('ver_anuncio', anuncio_id=anuncio_id))
-                else:
-                    flash(f"Error al actualizar anuncio: {resultado['mensaje']}", 'error')
+                    
+                except Exception as e:
+                    logger.error(f"Error al actualizar anuncio: {e}")
+                    flash(f"Error al actualizar anuncio: {str(e)}", 'error')
             
             return render_template('anuncios/editar.html', form=form, anuncio=anuncio)
             

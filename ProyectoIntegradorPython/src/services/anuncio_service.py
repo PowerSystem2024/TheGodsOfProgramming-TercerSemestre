@@ -9,6 +9,30 @@ from src.models.frecuencia_publicacion import FrecuenciaPublicacion
 class AnuncioService:
     
     @staticmethod
+    def crear_anuncio_simple(medio, modulo, frecuencia, empresa):
+        """
+        Crea un nuevo anuncio calculando automáticamente el precio
+        
+        Args:
+            medio (MedioComunicacion): El medio de comunicación
+            modulo (TipoModulo): El tipo de módulo
+            frecuencia (FrecuenciaPublicacion): La frecuencia de publicación
+            empresa (str): El nombre de la empresa
+            
+        Returns:
+            Anuncio: El anuncio creado con precio calculado automáticamente
+        """
+        anuncio = Anuncio(
+            medio=medio,
+            modulo=modulo,
+            frecuencia=frecuencia,
+            empresa=empresa
+        )
+        # El precio se calcula automáticamente en el constructor
+        anuncio.save()
+        return anuncio
+    
+    @staticmethod
     def crear_anuncio(medio, modulo, frecuencia, precio, empresa):
         """
         Crea un nuevo anuncio en la base de datos
@@ -106,7 +130,7 @@ class AnuncioService:
     @staticmethod
     def crear_anuncio_web(datos_anuncio):
         """
-        Crea un anuncio desde formulario web
+        Crea un anuncio desde formulario web con precio automático
         
         Args:
             datos_anuncio (dict): Datos del formulario web
@@ -116,28 +140,22 @@ class AnuncioService:
         """
         try:
             # Obtener objetos de referencias
-            medio = MedioComunicacion.objects.get(id=datos_anuncio['medio_comunicacion_id'])
-            modulo = TipoModulo.objects.get(id=datos_anuncio['tipo_modulo_id'])
-            frecuencia = FrecuenciaPublicacion.objects.get(id=datos_anuncio['frecuencia_publicacion_id'])
+            medio = MedioComunicacion.objects.get(id=datos_anuncio['medio_comunicacion'])
+            modulo = TipoModulo.objects.get(id=datos_anuncio['tipo_modulo'])
+            frecuencia = FrecuenciaPublicacion.objects.get(id=datos_anuncio['frecuencia_publicacion'])
             
-            # Crear anuncio con datos adicionales para web
-            anuncio = Anuncio(
-                codigo=datos_anuncio['codigo'],
-                nombre_producto=datos_anuncio['nombre_producto'],
-                slogan=datos_anuncio.get('slogan', ''),
-                descripcion=datos_anuncio.get('descripcion', ''),
+            # Crear anuncio usando el método simple que calcula precio automáticamente
+            anuncio = AnuncioService.crear_anuncio_simple(
                 medio=medio,
                 modulo=modulo,
                 frecuencia=frecuencia,
-                precio=datos_anuncio['precio'],
-                empresa=datos_anuncio['codigo']  # Usar código como empresa por compatibilidad
+                empresa=datos_anuncio['empresa']
             )
-            anuncio.save()
             
             return {
                 'exitoso': True,
                 'anuncio': anuncio,
-                'mensaje': 'Anuncio creado exitosamente'
+                'mensaje': f'Anuncio creado exitosamente. Precio calculado: ${anuncio.precio:,.2f}'
             }
             
         except Exception as e:

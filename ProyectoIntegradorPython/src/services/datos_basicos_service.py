@@ -98,6 +98,54 @@ class DatosBasicosService:
         """
         return list(FrecuenciaPublicacion.objects.all())
     
+    @staticmethod
+    def obtener_medio_comunicacion_por_id(medio_id):
+        """
+        Obtiene un medio de comunicación por su ID
+        
+        Args:
+            medio_id (str): ID del medio de comunicación
+            
+        Returns:
+            MedioComunicacion: El medio encontrado o None si no existe
+        """
+        try:
+            return MedioComunicacion.objects(id=medio_id).first()
+        except Exception:
+            return None
+    
+    @staticmethod
+    def obtener_tipo_modulo_por_id(tipo_id):
+        """
+        Obtiene un tipo de módulo por su ID
+        
+        Args:
+            tipo_id (str): ID del tipo de módulo
+            
+        Returns:
+            TipoModulo: El tipo encontrado o None si no existe
+        """
+        try:
+            return TipoModulo.objects(id=tipo_id).first()
+        except Exception:
+            return None
+    
+    @staticmethod
+    def obtener_frecuencia_publicacion_por_id(frecuencia_id):
+        """
+        Obtiene una frecuencia de publicación por su ID
+        
+        Args:
+            frecuencia_id (str): ID de la frecuencia de publicación
+            
+        Returns:
+            FrecuenciaPublicacion: La frecuencia encontrada o None si no existe
+        """
+        try:
+            return FrecuenciaPublicacion.objects(id=frecuencia_id).first()
+        except Exception:
+            return None
+
     # Métodos alias para compatibilidad con la aplicación web
     @staticmethod
     def listar_medios_comunicacion():
