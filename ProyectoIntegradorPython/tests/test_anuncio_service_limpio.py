@@ -1,5 +1,5 @@
 """
-Tests para el servicio de anuncios - Solo métodos que funcionan correctamente
+Tests para el servicio de anuncios
 """
 import unittest
 from unittest.mock import patch, MagicMock
@@ -14,7 +14,7 @@ from services.anuncio_service import AnuncioService
 
 class TestAnuncioServiceLimpio(unittest.TestCase):
     """
-    Tests para el servicio de anuncios - Solo funcionalidades que funcionan
+    Tests para el servicio de anuncios
     """
     
     def setUp(self):

@@ -30,6 +30,52 @@ class Anuncio(me.Document):
         ]
     }
     
+    def calcular_precio(self):
+        """
+        Calcula el precio del anuncio basado en el medio, módulo y frecuencia
+        
+        Returns:
+            float: El precio calculado del anuncio
+        """
+        # Precios base por medio de comunicación
+        precios_medios = {
+            'Televisión': 15000.0,
+            'Radio': 8000.0,
+            'Diario': 5000.0,
+            'Revista': 7000.0,
+            'Internet': 3000.0
+        }
+        
+        # Multiplicadores por tipo de módulo
+        multiplicadores_modulo = {
+            'Página Completa': 2.0,
+            'Media Página': 1.0,
+            'Cuarto de Página': 0.5,
+            'Banner': 0.3,
+            'Spot 30 segundos': 1.0,
+            'Spot 60 segundos': 1.8
+        }
+        
+        # Multiplicadores por frecuencia
+        multiplicadores_frecuencia = {
+            'Diaria': 1.0,
+            'Semanal': 0.8,
+            'Quincenal': 0.6,
+            'Mensual': 0.4
+        }
+        
+        try:
+            precio_base = precios_medios.get(self.medio.nombre, 5000.0)
+            mult_modulo = multiplicadores_modulo.get(self.modulo.nombre, 1.0)
+            mult_frecuencia = multiplicadores_frecuencia.get(self.frecuencia.nombre, 1.0)
+            
+            precio_calculado = precio_base * mult_modulo * mult_frecuencia
+            return round(precio_calculado, 2)
+            
+        except AttributeError:
+            # Si hay algún problema con las referencias, devolver precio por defecto
+            return 5000.0
+    
     def __init__(self, medio=None, modulo=None, frecuencia=None, precio=None, empresa=None, *args, **kwargs):
         """
         Constructor de la clase Anuncio.
@@ -38,7 +84,7 @@ class Anuncio(me.Document):
             medio (MedioComunicacion): El medio de comunicación del anuncio.
             modulo (TipoModulo): El tipo de módulo del anuncio.
             frecuencia (FrecuenciaPublicacion): La frecuencia de publicación del anuncio.
-            precio (float): El precio del anuncio.
+            precio (float, optional): El precio del anuncio. Si no se proporciona, se calcula automáticamente.
             empresa (str): El nombre de la empresa del anuncio.
         """
         super().__init__(*args, **kwargs)
@@ -48,10 +94,16 @@ class Anuncio(me.Document):
             self.modulo = modulo
         if frecuencia:
             self.frecuencia = frecuencia
-        if precio is not None:
-            self.precio = precio
         if empresa:
             self.empresa = empresa
+        
+        # Calcular precio automáticamente si no se proporciona
+        if precio is not None:
+            self.precio = precio
+        elif self.medio and self.modulo and self.frecuencia:
+            self.precio = self.calcular_precio()
+        else:
+            self.precio = 0.0  # Valor por defecto
 
     def get_medio(self):
         """

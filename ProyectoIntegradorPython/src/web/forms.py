@@ -9,11 +9,7 @@ from wtforms.widgets import TextArea
 
 class AnuncioForm(FlaskForm):
     """Formulario para crear/editar anuncios"""
-    codigo = StringField('Código', validators=[DataRequired(), Length(min=1, max=50)])
-    nombre_producto = StringField('Nombre del Producto', validators=[DataRequired(), Length(min=1, max=200)])
-    slogan = TextAreaField('Slogan', validators=[Optional(), Length(max=500)])
-    descripcion = TextAreaField('Descripción', validators=[Optional(), Length(max=1000)])
-    precio = FloatField('Precio', validators=[DataRequired(), NumberRange(min=0)])
+    empresa = StringField('Empresa', validators=[DataRequired(), Length(min=2, max=200)])
     
     # Campos que se llenarán dinámicamente
     medio_comunicacion = SelectField('Medio de Comunicación', choices=[], validators=[DataRequired()])

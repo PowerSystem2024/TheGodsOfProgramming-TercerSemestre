@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-3">
                     {{ form.termino.label(class="form-label") }}
-                    {{ form.termino(class="form-control", placeholder="Buscar por código o producto...") }}
+                    {{ form.termino(class="form-control", placeholder="Buscar por empresa...") }}
                 </div>
                 <div class="col-md-3">
                     {{ form.medio_comunicacion.label(class="form-label") }}
@@ -63,12 +63,12 @@
                 <table class="table table-hover mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th>Código</th>
-                            <th>Producto</th>
+                            <th>Empresa</th>
                             <th>Precio</th>
                             <th>Medio</th>
                             <th>Tipo Módulo</th>
                             <th>Frecuencia</th>
+                            <th>Fecha Creación</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -76,25 +76,22 @@
                         {% for anuncio in anuncios %}
                         <tr>
                             <td>
-                                <strong class="text-primary">{{ anuncio.codigo }}</strong>
-                            </td>
-                            <td>
-                                <div class="fw-bold">{{ anuncio.nombre_producto }}</div>
-                                {% if anuncio.slogan %}
-                                <small class="text-muted">{{ anuncio.slogan[:50] }}...</small>
-                                {% endif %}
+                                <strong class="text-primary">{{ anuncio.empresa }}</strong>
                             </td>
                             <td>
                                 <span class="badge bg-success">${{ "%.2f"|format(anuncio.precio) }}</span>
                             </td>
                             <td>
-                                {{ anuncio.medio_comunicacion.nombre if anuncio.medio_comunicacion else 'N/A' }}
+                                {{ anuncio.medio.nombre if anuncio.medio else 'N/A' }}
                             </td>
                             <td>
-                                {{ anuncio.tipo_modulo.nombre if anuncio.tipo_modulo else 'N/A' }}
+                                {{ anuncio.modulo.nombre if anuncio.modulo else 'N/A' }}
                             </td>
                             <td>
-                                {{ anuncio.frecuencia_publicacion.nombre if anuncio.frecuencia_publicacion else 'N/A' }}
+                                {{ anuncio.frecuencia.nombre if anuncio.frecuencia else 'N/A' }}
+                            </td>
+                            <td>
+                                <small class="text-muted">{{ anuncio.fecha_creacion.strftime('%d/%m/%Y') if anuncio.fecha_creacion else 'N/A' }}</small>
                             </td>
                             <td>
                                 <div class="btn-group" role="group">
@@ -107,7 +104,7 @@
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     <button type="button" class="btn btn-sm btn-outline-danger" 
-                                            title="Eliminar" onclick="confirmarEliminacion('{{ anuncio.id }}', '{{ anuncio.codigo }}')">
+                                            title="Eliminar" onclick="confirmarEliminacion('{{ anuncio.id }}', '{{ anuncio.empresa }}')">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </div>
